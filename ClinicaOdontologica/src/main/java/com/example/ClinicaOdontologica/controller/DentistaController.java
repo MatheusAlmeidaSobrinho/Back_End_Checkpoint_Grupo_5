@@ -27,9 +27,11 @@ public class DentistaController {
         return dentistaService.atualizar(dentistaDTO);
     }
 
+
     @DeleteMapping("/excluirPorId/{id}")
-    public DentistaDTO excluirPorId(@PathVariable int id){
-        return dentistaService.excluirPorId(id);
+    public String excluirPorId(@PathVariable int id){
+        dentistaService.excluirPorId(id);
+        return "Dentista deletado com sucesso";
     }
 
 }

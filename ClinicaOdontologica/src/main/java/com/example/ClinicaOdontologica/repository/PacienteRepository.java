@@ -28,8 +28,8 @@ public class PacienteRepository {
         return null;
     }
 
-    public Paciente excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 
 }

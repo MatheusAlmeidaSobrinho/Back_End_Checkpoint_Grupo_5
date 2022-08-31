@@ -31,7 +31,7 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     }
 
     @Override
-    public EnderecoDTO excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 }

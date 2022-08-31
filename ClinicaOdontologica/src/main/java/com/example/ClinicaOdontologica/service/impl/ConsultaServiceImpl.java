@@ -10,6 +10,8 @@ import com.example.ClinicaOdontologica.service.IClinicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
 
@@ -35,7 +37,11 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     }
 
     @Override
-    public ConsultaDTO excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+        consultaRepository.excluirPorId(id);
+    }
+
+    public List<Consulta> findAll() {
+        return consultaRepository.findAll();
     }
 }

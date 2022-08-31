@@ -32,7 +32,7 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public PacienteDTO excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 }
