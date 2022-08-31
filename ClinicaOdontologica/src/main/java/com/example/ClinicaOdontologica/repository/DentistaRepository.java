@@ -27,8 +27,8 @@ public class DentistaRepository {
         return null;
     }
 
-    public Dentista excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 
 }

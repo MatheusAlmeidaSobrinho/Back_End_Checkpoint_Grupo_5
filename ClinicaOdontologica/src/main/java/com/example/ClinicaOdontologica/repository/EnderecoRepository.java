@@ -28,8 +28,8 @@ public class EnderecoRepository {
         return null;
     }
 
-    public Endereco excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 
 }

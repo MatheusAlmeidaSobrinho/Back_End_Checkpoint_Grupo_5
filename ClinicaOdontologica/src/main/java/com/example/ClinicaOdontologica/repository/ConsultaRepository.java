@@ -1,15 +1,22 @@
 package com.example.ClinicaOdontologica.repository;
 
 import com.example.ClinicaOdontologica.entity.Consulta;
-import com.example.ClinicaOdontologica.entity.Dentista;
+import com.example.ClinicaOdontologica.entity.dto.ConsultaDTO;
 import org.jetbrains.annotations.NotNull;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
 public class ConsultaRepository {
+
+    @Autowired
+    private ModelMapper mapper;
 
     private static Map<Integer, Consulta> consultaMap = new HashMap<>();
 
@@ -29,7 +36,11 @@ public class ConsultaRepository {
         return null;
     }
 
-    public Consulta excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+       consultaMap.remove(id);
+    }
+
+    public List<Consulta> findAll() {
+        return consultaMap.values().stream().toList();
     }
 }

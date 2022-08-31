@@ -28,8 +28,9 @@ public class PacienteController {
     }
 
     @DeleteMapping("/excluirPorId/{id}")
-    public PacienteDTO excluirPorId(@PathVariable int id){
-        return pacienteService.excluirPorId(id);
+    public String excluirPorId(@PathVariable int id){
+         pacienteService.excluirPorId(id);
+         return "Paciente deletado com sucesso";
     }
 
 }

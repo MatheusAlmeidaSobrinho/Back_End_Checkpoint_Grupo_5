@@ -31,7 +31,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO excluirPorId(int id) {
-        return null;
+    public void excluirPorId(int id) {
+
     }
 }

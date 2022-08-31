@@ -28,8 +28,9 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/excluirPorId/{id}")
-    public EnderecoDTO excluirPorId(@PathVariable int id){
-        return enderecoService.excluirPorId(id);
+    public String excluirPorId(@PathVariable int id){
+       enderecoService.excluirPorId(id);
+        return "Endereco deletado com sucesso";
     }
 
 }
