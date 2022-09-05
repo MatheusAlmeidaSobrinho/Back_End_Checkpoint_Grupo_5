@@ -62,7 +62,6 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
 
         entity.setRg(obj.getRg());
         entity.setDataDeAlta(obj.getDataDeAlta());
-
         return entity;
     }
 }
