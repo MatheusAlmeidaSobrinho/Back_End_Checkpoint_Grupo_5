@@ -10,7 +10,7 @@ public class PacienteDTO {
     private String nome;
     private String sobrenome;
     private Endereco endereco;
-    private Integer rg;
+    private String rg;
     private Date dataDeAlta;
 
     public PacienteDTO(Paciente paciente) {
@@ -48,11 +48,11 @@ public class PacienteDTO {
         this.endereco = endereco;
     }
 
-    public Integer getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(Integer rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 

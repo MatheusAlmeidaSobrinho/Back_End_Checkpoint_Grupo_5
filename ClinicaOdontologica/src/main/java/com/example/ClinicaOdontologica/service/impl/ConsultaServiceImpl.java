@@ -27,17 +27,17 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     }
 
     @Override
-    public ConsultaDTO consultarPorId(int id) {
+    public ConsultaDTO consultarPorId(Integer id) {
         return null;
     }
 
     @Override
-    public ConsultaDTO atualizar(ConsultaDTO consultaDTO) {
+    public ConsultaDTO atualizar(Integer id, ConsultaDTO consultaDTO) {
         return null;
     }
 
     @Override
-    public void excluirPorId(int id) {
+    public void excluirPorId(Integer id) {
         consultaRepository.excluirPorId(id);
     }
 

@@ -22,9 +22,9 @@ public class DentistaController {
         return dentistaService.consultarPorId(id);
     }
 
-    @PutMapping("/atualizar")
-    public DentistaDTO atualizar(@RequestBody DentistaDTO dentistaDTO){
-        return dentistaService.atualizar(dentistaDTO);
+    @PutMapping("/atualizar/{id}")
+    public DentistaDTO atualizar(@PathVariable Integer id, @RequestBody DentistaDTO dentistaDTO){
+        return dentistaService.atualizar(id, dentistaDTO);
     }
 
 

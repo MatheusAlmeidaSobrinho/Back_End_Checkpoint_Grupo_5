@@ -1,22 +1,31 @@
 package com.example.ClinicaOdontologica.entity;
 
-import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+
+@Entity
 public class Endereco {
+
+    @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String rua;
     private Integer numero;
     private String bairro;
     private String cidade;
     private String cep;
 
-    public Endereco(EnderecoDTO enderecoDTO) {
-        this.rua = enderecoDTO.getRua();
-        this.numero = enderecoDTO.getNumero();
-        this.bairro = enderecoDTO.getBairro();
-        this.cidade = enderecoDTO.getCidade();
-        this.cep = enderecoDTO.getCep();
+    @JsonIgnore
+    @OneToOne()
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+
+    public Endereco() {
     }
+
 
     public Integer getId() {
         return id;
@@ -64,5 +73,13 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

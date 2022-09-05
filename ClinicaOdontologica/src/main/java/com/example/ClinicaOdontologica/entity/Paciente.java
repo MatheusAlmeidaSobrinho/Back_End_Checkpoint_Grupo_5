@@ -1,25 +1,27 @@
 package com.example.ClinicaOdontologica.entity;
 
-import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
-
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity(name = "tb_paciente")
 public class Paciente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
     private String sobrenome;
+
+    @OneToOne(mappedBy = "paciente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Endereco endereco;
-    private Integer rg;
+
+    @Column(unique = true)
+    private String rg;
     private Date dataDeAlta;
 
-    public Paciente(PacienteDTO pacienteDTO) {
-        this.nome = pacienteDTO.getNome();
-        this.sobrenome = pacienteDTO.getSobrenome();
-        this.endereco = pacienteDTO.getEndereco();
-        this.rg = pacienteDTO.getRg();
-        this.dataDeAlta = pacienteDTO.getDataDeAlta();
+    public Paciente() {
     }
-
 
     public Integer getId() {
         return id;
@@ -53,11 +55,11 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public Integer getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(Integer rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 

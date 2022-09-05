@@ -31,9 +31,9 @@ public class ConsultaController {
     }
 
 
-    @PutMapping("/atualizar")
-    public ConsultaDTO atualizar(@RequestBody ConsultaDTO consultaDTO){
-        return consultaService.atualizar(consultaDTO);
+    @PutMapping("/atualizar/{id}")
+    public ConsultaDTO atualizar(@PathVariable Integer id, @RequestBody ConsultaDTO consultaDTO){
+        return consultaService.atualizar(id, consultaDTO);
     }
 
     @DeleteMapping("/excluirPorId/{id}")

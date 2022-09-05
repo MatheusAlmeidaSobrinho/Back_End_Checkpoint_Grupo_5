@@ -21,17 +21,17 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO consultarPorId(int id) {
+    public DentistaDTO consultarPorId(Integer id) {
         return new DentistaDTO(dentistaRepository.consultarPorId(id));
     }
 
     @Override
-    public DentistaDTO atualizar(DentistaDTO dentistaDTO) {
+    public DentistaDTO atualizar(Integer id, DentistaDTO dentistaDTO) {
         return null;
     }
 
     @Override
-    public void excluirPorId(int id) {
+    public void excluirPorId(Integer id) {
 
     }
 }
