@@ -1,10 +1,11 @@
 package com.example.ClinicaOdontologica.service.impl;
 
+import com.example.ClinicaOdontologica.common.exception.NotFound;
 import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.repository.PacienteRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import com.example.ClinicaOdontologica.service.exceptions.ConstraintViolationException;
-import com.example.ClinicaOdontologica.service.exceptions.ObjectNotFoundException;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
     @Override
     public Paciente consultarPorId(Integer id) {
         Optional<Paciente> obj = this.pacienteRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado"));
+        return obj.orElseThrow(() -> new NotFound("Paciente não encontrado"));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
 
             return obj;
         } catch (Exception err) {
-            throw new ConstraintViolationException(err.getMessage());
+            throw new NotFound(err.getMessage());
         }
     }
 

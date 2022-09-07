@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologica.controller.exception;
+package com.example.ClinicaOdontologica.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
