@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologica.config;
+package com.example.ClinicaOdontologica.common.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

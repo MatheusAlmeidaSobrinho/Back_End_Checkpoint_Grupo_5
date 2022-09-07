@@ -9,37 +9,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/consulta")
+@RequestMapping("/consultas")
 public class ConsultaController {
 
     @Autowired
     private ConsultaServiceImpl consultaService;
 
-    @PostMapping("/cadastrar")
-    public ConsultaDTO cadastrar(@RequestBody ConsultaDTO consultaDTO){
+    @PostMapping()
+    public ConsultaDTO cadastrar(@RequestBody ConsultaDTO consultaDTO) {
         return consultaService.cadastrar(consultaDTO);
     }
 
     @GetMapping()
-    public List<Consulta> consultarPorId(){
+    public List<Consulta> listaConsultas() {
         return consultaService.findAll();
     }
 
-    @GetMapping("/consultarPorId/{id}")
-    public ConsultaDTO consultarPorId(@PathVariable int id){
+    @GetMapping("/{id}")
+    public ConsultaDTO consultarPorId(@PathVariable int id) {
         return consultaService.consultarPorId(id);
     }
 
 
-    @PutMapping("/atualizar/{id}")
-    public ConsultaDTO atualizar(@PathVariable Integer id, @RequestBody ConsultaDTO consultaDTO){
+    @PutMapping("/{id}")
+    public ConsultaDTO atualizar(@PathVariable Integer id, @RequestBody ConsultaDTO consultaDTO) {
         return consultaService.atualizar(id, consultaDTO);
     }
 
-    @DeleteMapping("/excluirPorId/{id}")
-    public String excluirPorId(@PathVariable int id){
-         consultaService.excluirPorId(id);
-         return "Consulta removida com sucesso";
+    @DeleteMapping("/{id}")
+    public String excluirPorId(@PathVariable int id) {
+        consultaService.excluirPorId(id);
+        return "Consulta removida com sucesso";
     }
 
 }
