@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.entity.dto;
 
-import com.example.ClinicaOdontologica.entity.Dentista;
+
 import lombok.Data;
 
 @Data

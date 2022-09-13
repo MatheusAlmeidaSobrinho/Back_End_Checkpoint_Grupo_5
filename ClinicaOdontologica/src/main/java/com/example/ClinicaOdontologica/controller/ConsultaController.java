@@ -6,6 +6,7 @@ import com.example.ClinicaOdontologica.service.impl.ConsultaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,7 @@ public class ConsultaController {
     private ConsultaServiceImpl consultaService;
 
     @PostMapping()
+    @Transactional
     public ConsultaDTO cadastrar(@RequestBody ConsultaDTO consultaDTO) {
         return consultaService.cadastrar(consultaDTO);
     }
@@ -32,11 +34,13 @@ public class ConsultaController {
 
 
     @PutMapping("/{id}")
+    @Transactional
     public ConsultaDTO atualizar(@PathVariable Integer id, @RequestBody ConsultaDTO consultaDTO) {
         return consultaService.atualizar(id, consultaDTO);
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public String excluirPorId(@PathVariable int id) {
         consultaService.excluirPorId(id);
         return "Consulta removida com sucesso";

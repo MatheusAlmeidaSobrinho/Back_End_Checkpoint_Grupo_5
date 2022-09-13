@@ -5,6 +5,8 @@ import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/dentistas")
 public class DentistaController {
@@ -13,6 +15,7 @@ public class DentistaController {
     private DentistaServiceImpl dentistaService;
 
     @PostMapping()
+    @Transactional
     public DentistaDTO cadastrar(@RequestBody DentistaDTO dentistaDTO){
         return dentistaService.cadastrar(dentistaDTO);
     }
@@ -23,12 +26,14 @@ public class DentistaController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public DentistaDTO atualizar(@PathVariable Integer id, @RequestBody DentistaDTO dentistaDTO){
         return dentistaService.atualizar(id, dentistaDTO);
     }
 
 
     @DeleteMapping("/{id}")
+    @Transactional
     public String excluirPorId(@PathVariable int id){
         dentistaService.excluirPorId(id);
         return "Dentista deletado com sucesso";

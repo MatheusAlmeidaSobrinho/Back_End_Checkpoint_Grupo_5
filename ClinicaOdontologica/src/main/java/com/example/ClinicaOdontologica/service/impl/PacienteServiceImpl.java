@@ -4,8 +4,6 @@ import com.example.ClinicaOdontologica.common.exception.NotFound;
 import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.repository.PacienteRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import org.hibernate.ObjectNotFoundException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

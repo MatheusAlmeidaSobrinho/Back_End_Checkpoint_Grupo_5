@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import java.net.URI;
 
 @RestController
@@ -24,6 +25,7 @@ public class PacienteController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public ResponseEntity cadastrar(@RequestBody PacienteDTO pacienteDTO){
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
@@ -38,11 +40,13 @@ public class PacienteController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<Paciente> atualizar(@PathVariable Integer id, @RequestBody PacienteDTO pacienteDTO){
         return ResponseEntity.ok().body(pacienteService.atualizar(id, mapper.map(pacienteDTO, Paciente.class)));
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity excluirPorId(@PathVariable Integer id){
          pacienteService.excluirPorId(id);
          return ResponseEntity.noContent().build();

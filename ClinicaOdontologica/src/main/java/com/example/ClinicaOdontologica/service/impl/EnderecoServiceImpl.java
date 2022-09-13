@@ -1,11 +1,8 @@
 package com.example.ClinicaOdontologica.service.impl;
 
 import com.example.ClinicaOdontologica.common.exception.NotFound;
-import com.example.ClinicaOdontologica.entity.Dentista;
 import com.example.ClinicaOdontologica.entity.Endereco;
-import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
-import com.example.ClinicaOdontologica.repository.DentistaRepository;
 import com.example.ClinicaOdontologica.repository.EnderecoRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
 import org.modelmapper.ModelMapper;
