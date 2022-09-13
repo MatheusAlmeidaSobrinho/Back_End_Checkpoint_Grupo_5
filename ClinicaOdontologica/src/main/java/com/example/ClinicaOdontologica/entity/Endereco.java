@@ -23,4 +23,23 @@ public class Endereco {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 }

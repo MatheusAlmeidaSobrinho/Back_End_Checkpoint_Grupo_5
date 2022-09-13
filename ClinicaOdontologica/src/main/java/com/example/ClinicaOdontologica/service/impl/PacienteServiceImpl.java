@@ -41,7 +41,7 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
     @Override
     public Paciente atualizar(Integer id, Paciente paciente) {
         Paciente entity = this.consultarPorId(id);
-        return pacienteRepository.save(this.updateData(entity, paciente));
+        return pacienteRepository.save(this.atualizarDadosPaciente(entity, paciente));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
         this.pacienteRepository.deleteById(id);
     }
 
-    private Paciente updateData(Paciente entity, Paciente obj) {
+    private Paciente atualizarDadosPaciente(Paciente entity, Paciente obj) {
         entity.setNome(obj.getNome());
         entity.setSobrenome(obj.getSobrenome());
 
