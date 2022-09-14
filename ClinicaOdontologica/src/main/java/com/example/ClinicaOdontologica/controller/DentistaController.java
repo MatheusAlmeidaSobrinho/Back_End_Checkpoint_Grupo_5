@@ -28,20 +28,20 @@ public class DentistaController {
     }
 
     @GetMapping("/{id}")
-    public DentistaDTO consultarPorId(@PathVariable int id) {
-        return dentistaService.consultarPorId(id);
+    public ResponseEntity<DentistaDTO> consultarPorId(@PathVariable int id) {
+        return ResponseEntity.ok().body(dentistaService.consultarPorId(id));
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public DentistaDTO atualizar(@PathVariable Integer id, @RequestBody DentistaDTO dentistaDTO){
-        return dentistaService.atualizar(id, dentistaDTO);
+    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody DentistaDTO dentistaDTO){
+        return ResponseEntity.ok().body(dentistaService.atualizar(id, dentistaDTO));
     }
     @DeleteMapping("/{id}")
     @Transactional
-    public String excluirPorId(@PathVariable int id){
+    public ResponseEntity excluirPorId(@PathVariable int id){
         dentistaService.excluirPorId(id);
-        return "Dentista deletado com sucesso";
+        return ResponseEntity.noContent().build();
     }
 
 }
