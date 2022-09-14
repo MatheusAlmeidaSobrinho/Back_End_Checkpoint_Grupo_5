@@ -9,7 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
@@ -24,6 +26,12 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     public DentistaDTO cadastrar(DentistaDTO dentistaDTO) {
         dentistaRepository.save(modelMapper.map(dentistaDTO, Dentista.class));
         return dentistaDTO;
+    }
+
+
+    public List<DentistaDTO> findAll() {
+        return  dentistaRepository.findAll().stream()
+                .map(dentistas -> modelMapper.map(dentistas, DentistaDTO.class)).collect(Collectors.toList());
     }
 
     @Override
