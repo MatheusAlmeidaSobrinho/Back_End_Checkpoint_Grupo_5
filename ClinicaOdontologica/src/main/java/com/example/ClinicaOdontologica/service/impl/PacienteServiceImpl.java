@@ -1,47 +1,56 @@
 package com.example.ClinicaOdontologica.service.impl;
 
-import com.example.ClinicaOdontologica.common.exception.NotFound;
+import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.Paciente;
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
+import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
 import com.example.ClinicaOdontologica.repository.PacienteRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
-public class PacienteServiceImpl implements IClinicaService<Paciente> {
+public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
     @Autowired
+    private EnderecoServiceImpl enderecoService;
+
+    @Autowired
     private ModelMapper mapper;
 
     @Override
-    public Paciente consultarPorId(Integer id) {
-        Optional<Paciente> obj = this.pacienteRepository.findById(id);
-        return obj.orElseThrow(() -> new NotFound("Paciente não encontrado"));
-    }
+    public PacienteDTO cadastrar(PacienteDTO pacienteDTO) {
+        Paciente paciente = mapperDTOParaPaciente(pacienteDTO);
+        EnderecoDTO enderecoDTO;
+        int idEndereco = paciente.getEndereco().getId();
 
-    @Override
-    public Paciente cadastrar(Paciente paciente) {
-        try {
-            Paciente obj = this.pacienteRepository.save(paciente);
-            obj.getEndereco().setPaciente(obj);
-            this.pacienteRepository.save(obj);
-
-            return obj;
-        } catch (Exception err) {
-            throw new NotFound(err.getMessage());
+        if(enderecoService.ifEnderecoExists(idEndereco)){
+            enderecoDTO = enderecoService.consultarPorId(idEndereco);
+            Endereco endereco = new Endereco(enderecoDTO);
+            paciente.setEndereco(endereco);
+            paciente = pacienteRepository.save(paciente);
         }
+        pacienteDTO = mapperPacienteParaDTO(paciente);
+        return pacienteDTO;
     }
 
     @Override
-    public Paciente atualizar(Integer id, Paciente paciente) {
-        Paciente entity = this.consultarPorId(id);
-        return pacienteRepository.save(this.atualizarDadosPaciente(entity, paciente));
+    public PacienteDTO consultarPorId(Integer id) {
+        Paciente paciente = pacienteRepository.findById(id).get();
+        return mapperPacienteParaDTO(paciente);
+    }
+
+    @Override
+    public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) {
+        PacienteDTO entity = this.consultarPorId(id);
+        pacienteDTO.setId(entity.getId());
+        pacienteRepository.saveAndFlush(mapper.map(pacienteDTO,Paciente.class));
+        return pacienteDTO;
     }
 
     @Override
@@ -50,18 +59,13 @@ public class PacienteServiceImpl implements IClinicaService<Paciente> {
         this.pacienteRepository.deleteById(id);
     }
 
-    private Paciente atualizarDadosPaciente(Paciente entity, Paciente obj) {
-        entity.setNome(obj.getNome());
-        entity.setSobrenome(obj.getSobrenome());
+    private Paciente mapperDTOParaPaciente(PacienteDTO pacienteDTO) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.convertValue(pacienteDTO, Paciente.class);
+    }
 
-        entity.getEndereco().setRua(obj.getEndereco().getRua());
-        entity.getEndereco().setNumero(obj.getEndereco().getNumero());
-        entity.getEndereco().setBairro(obj.getEndereco().getBairro());
-        entity.getEndereco().setCep(obj.getEndereco().getCep());
-
-        entity.setRg(obj.getRg());
-        entity.setDataDeAlta(obj.getDataDeAlta());
-
-        return entity;
+    private PacienteDTO mapperPacienteParaDTO(Paciente paciente) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.convertValue(paciente, PacienteDTO.class);
     }
 }

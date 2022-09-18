@@ -2,8 +2,10 @@ package com.example.ClinicaOdontologica.service.impl;
 
 import com.example.ClinicaOdontologica.common.exception.NotFound;
 import com.example.ClinicaOdontologica.entity.Dentista;
+import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.repository.DentistaRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
 import org.modelmapper.ModelMapper;
@@ -30,7 +32,6 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
         dentistaRepository.save(modelMapper.map(dentistaDTO, Dentista.class));
         return dentistaDTO;
     }
-
 
     public List<DentistaDTO> findAll() {
         return  dentistaRepository.findAll().stream()

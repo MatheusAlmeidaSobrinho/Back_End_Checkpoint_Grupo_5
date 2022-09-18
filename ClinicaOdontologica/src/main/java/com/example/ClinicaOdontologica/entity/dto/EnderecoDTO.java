@@ -1,13 +1,13 @@
 package com.example.ClinicaOdontologica.entity.dto;
 
 import com.example.ClinicaOdontologica.entity.Endereco;
-import com.example.ClinicaOdontologica.repository.EnderecoRepository;
 import lombok.Data;
-
-import java.util.Optional;
 
 @Data
 public class EnderecoDTO {
+
+
+    private Integer id; // acredito q esse id seja o problema, precisa ignorar ele no postman na criação
 
     private String rua;
     private Integer numero;
@@ -15,18 +15,14 @@ public class EnderecoDTO {
     private String cidade;
     private String cep;
 
-   /*
-    public Optional<Endereco> atualizar(Integer id, EnderecoRepository enderecoRepository) {
-        Optional<Endereco> endereco = enderecoRepository.findById(id);
+    public EnderecoDTO(Endereco endereco) {
+        this.rua = endereco.getRua();
+        this.numero = endereco.getNumero();
+        this.bairro = endereco.getBairro();
+        this.cidade = endereco.getCidade();
+        this.cep = endereco.getCep();
+    }
 
-        endereco.get().setRua(this.rua);
-        endereco.get().setNumero(this.numero);
-        endereco.get().setBairro(this.bairro);
-        endereco.get().setCidade(this.cidade);
-        endereco.get().setCep(this.cep);
-
-        return endereco;
-
-    }*/
-
+    public EnderecoDTO() {
+    }
 }

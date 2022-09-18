@@ -1,5 +1,7 @@
 package com.example.ClinicaOdontologica.service;
 
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
+
 import java.util.Optional;
 
 // serve para paciente, dentista e consulta (para login acredito que vai ser criado uma nova interface)

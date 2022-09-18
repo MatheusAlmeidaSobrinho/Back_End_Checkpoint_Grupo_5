@@ -1,5 +1,7 @@
 package com.example.ClinicaOdontologica.entity;
 
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,23 +25,14 @@ public class Endereco {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public Endereco(EnderecoDTO enderecoDTO) {
+        this.rua = enderecoDTO.getRua();
+        this.numero = enderecoDTO.getNumero();
+        this.bairro = enderecoDTO.getBairro();
+        this.cidade = enderecoDTO.getCidade();
+        this.cep = enderecoDTO.getCep();
     }
 
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
+    public Endereco() {
     }
 }

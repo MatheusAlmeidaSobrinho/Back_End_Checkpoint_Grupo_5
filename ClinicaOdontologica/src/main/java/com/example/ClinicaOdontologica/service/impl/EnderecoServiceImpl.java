@@ -2,17 +2,20 @@ package com.example.ClinicaOdontologica.service.impl;
 
 import com.example.ClinicaOdontologica.common.exception.NotFound;
 import com.example.ClinicaOdontologica.entity.Endereco;
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.repository.EnderecoRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class EnderecoServiceImpl implements IClinicaService<Endereco> {
+public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
 
     @Autowired
     ModelMapper modelMapper;
@@ -21,45 +24,49 @@ public class EnderecoServiceImpl implements IClinicaService<Endereco> {
     private EnderecoRepository enderecoRepository;
 
     @Override
-    public Endereco cadastrar(Endereco endereco) {
-        enderecoRepository.save(modelMapper.map(endereco, Endereco.class));
-        return endereco;
+    public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
+        enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
+        return enderecoDTO;
+    }
+
+//    @Override
+//    public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
+//        Endereco endereco = new Endereco(enderecoDTO);
+//        endereco = enderecoRepository.save(endereco);
+//        enderecoDTO = new EnderecoDTO(endereco);
+//        return enderecoDTO;
+//    }
+
+    public List<EnderecoDTO> findAll() {
+        return  enderecoRepository.findAll().stream()
+                .map(enderecos -> modelMapper.map(enderecos, EnderecoDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public Endereco consultarPorId(Integer id) {
-        Optional<Endereco> endereco = enderecoRepository.findById(id);
-        if(endereco.isEmpty()){
+    public EnderecoDTO consultarPorId(Integer id) {
+        Optional<Endereco> address = enderecoRepository.findById(id);
+        if(address.isEmpty()){
             throw new NotFound("Endereço não encontrado!");
         }
-        return modelMapper.map(endereco.get(), Endereco.class);
+        return modelMapper.map(address.get(), EnderecoDTO.class);
     }
 
     @Override
-    public Endereco atualizar(Integer id, Endereco endereco) {
-        Endereco adress = this.consultarPorId(id);
-        return enderecoRepository.save(this.atualizarDadosEndereco(adress,endereco));
+    public EnderecoDTO atualizar(Integer id ,EnderecoDTO enderecoDTO) {
+        EnderecoDTO address  = consultarPorId(id);
+        enderecoDTO.setId(address.getId());
+        enderecoRepository.saveAndFlush(modelMapper.map(enderecoDTO, Endereco.class));
+        return enderecoDTO;
     }
 
     @Override
     public void excluirPorId(Integer id) {
-        Optional<Endereco> optional = enderecoRepository.findById(id);
-        if (optional.isPresent()) {
-            enderecoRepository.deleteById(id);
-            ResponseEntity.ok().build();
-        }
-
-        ResponseEntity.notFound().build();
+        consultarPorId(id);
+        enderecoRepository.deleteById(id);
     }
 
-    private Endereco atualizarDadosEndereco(Endereco endereco, Endereco obj) {
-        endereco.setRua(obj.getRua());
-        endereco.setNumero(obj.getNumero());
-        endereco.setBairro(obj.getBairro());
-        endereco.setCidade(obj.getCidade());
-        endereco.setCep(obj.getCep());
-
-        return endereco;
+    public boolean ifEnderecoExists(int id) {
+        return enderecoRepository.existsById(id);
     }
 
 }

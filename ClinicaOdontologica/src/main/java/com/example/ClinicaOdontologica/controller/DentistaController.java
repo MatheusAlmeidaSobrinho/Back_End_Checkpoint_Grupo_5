@@ -23,7 +23,7 @@ public class DentistaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DentistaDTO>> getAll() {
+    public ResponseEntity<List<DentistaDTO>> findAll() {
         return ResponseEntity.ok().body(dentistaService.findAll());
     }
 
