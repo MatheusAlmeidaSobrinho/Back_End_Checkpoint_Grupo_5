@@ -1,8 +1,8 @@
 package com.example.ClinicaOdontologica.entity;
 
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer id;
 
     private String rua;
@@ -21,11 +22,8 @@ public class Endereco {
     private String cidade;
     private String cep;
 
-    @OneToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
-
     public Endereco(EnderecoDTO enderecoDTO) {
+        this.id = enderecoDTO.getId();
         this.rua = enderecoDTO.getRua();
         this.numero = enderecoDTO.getNumero();
         this.bairro = enderecoDTO.getBairro();

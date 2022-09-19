@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.service.impl;
 
+import com.example.ClinicaOdontologica.common.exception.NotFound;
 import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
@@ -11,6 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
 
@@ -21,35 +25,29 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     private EnderecoServiceImpl enderecoService;
 
     @Autowired
-    private ModelMapper mapper;
+    private ModelMapper modelMapper;
 
     @Override
     public PacienteDTO cadastrar(PacienteDTO pacienteDTO) {
-        Paciente paciente = mapperDTOParaPaciente(pacienteDTO);
-        EnderecoDTO enderecoDTO;
-        int idEndereco = paciente.getEndereco().getId();
-
-        if(enderecoService.ifEnderecoExists(idEndereco)){
-            enderecoDTO = enderecoService.consultarPorId(idEndereco);
-            Endereco endereco = new Endereco(enderecoDTO);
-            paciente.setEndereco(endereco);
-            paciente = pacienteRepository.save(paciente);
-        }
-        pacienteDTO = mapperPacienteParaDTO(paciente);
-        return pacienteDTO;
+        enderecoService.consultarPorId(pacienteDTO.getEnderecoId());
+        Paciente paciente = pacienteRepository.save(modelMapper.map(pacienteDTO, Paciente.class));
+        return modelMapper.map(paciente, PacienteDTO.class);
     }
 
     @Override
     public PacienteDTO consultarPorId(Integer id) {
-        Paciente paciente = pacienteRepository.findById(id).get();
-        return mapperPacienteParaDTO(paciente);
+        Optional<Paciente> entity = pacienteRepository.findById(id);
+        if(entity.isEmpty()){
+            throw new NotFound("Paciente não encontrado!");
+        }
+        return modelMapper.map(entity.get(), PacienteDTO.class);
     }
 
     @Override
     public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) {
         PacienteDTO entity = this.consultarPorId(id);
         pacienteDTO.setId(entity.getId());
-        pacienteRepository.saveAndFlush(mapper.map(pacienteDTO,Paciente.class));
+        pacienteRepository.saveAndFlush(modelMapper.map(pacienteDTO,Paciente.class));
         return pacienteDTO;
     }
 
@@ -59,13 +57,9 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
         this.pacienteRepository.deleteById(id);
     }
 
-    private Paciente mapperDTOParaPaciente(PacienteDTO pacienteDTO) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.convertValue(pacienteDTO, Paciente.class);
+    @Override
+    public List<PacienteDTO> findAll() {
+        return null;
     }
 
-    private PacienteDTO mapperPacienteParaDTO(Paciente paciente) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.convertValue(paciente, PacienteDTO.class);
-    }
 }

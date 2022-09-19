@@ -10,11 +10,8 @@ public class ConsultaDTO {
 
     @JsonIgnore
     private Integer id;
-
     private Integer paciente_id;
-
     private Integer dentista_id;
-
     private Date data;
 
 }

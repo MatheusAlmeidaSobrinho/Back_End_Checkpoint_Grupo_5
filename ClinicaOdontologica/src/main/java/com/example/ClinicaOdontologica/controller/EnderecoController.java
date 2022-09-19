@@ -4,12 +4,9 @@ import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.service.impl.EnderecoServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,8 +20,7 @@ public class EnderecoController {
     private ModelMapper mapper;
 
     @PostMapping()
-    @Transactional
-    public EnderecoDTO cadastrar(@RequestBody EnderecoDTO enderecoDTO){
+    public EnderecoDTO cadastrar(@RequestBody EnderecoDTO enderecoDTO) {
         return enderecoService.cadastrar(enderecoDTO);
     }
 
@@ -54,14 +50,12 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer id, @RequestBody EnderecoDTO enderecoDTO) {
-        return ResponseEntity.ok().body(enderecoService.atualizar(id,enderecoDTO));
+        return ResponseEntity.ok().body(enderecoService.atualizar(id, enderecoDTO));
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity excluirPorId(@PathVariable Integer id){
+    public ResponseEntity excluirPorId(@PathVariable Integer id) {
         enderecoService.excluirPorId(id);
         return ResponseEntity.noContent().build();
     }

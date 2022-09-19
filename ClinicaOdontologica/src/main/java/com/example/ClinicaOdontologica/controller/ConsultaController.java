@@ -23,7 +23,7 @@ public class ConsultaController {
     }
 
     @GetMapping()
-    public List<Consulta> listaConsultas() {
+    public List<ConsultaDTO> listaConsultas() {
         return consultaService.findAll();
     }
 

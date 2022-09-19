@@ -25,8 +25,8 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
 
     @Override
     public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
-        enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
-        return enderecoDTO;
+        Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
+        return modelMapper.map(endereco, EnderecoDTO.class);
     }
 
 //    @Override

@@ -1,13 +1,12 @@
 package com.example.ClinicaOdontologica.service;
 
-import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 
-import java.util.Optional;
+import java.util.List;
 
-// serve para paciente, dentista e consulta (para login acredito que vai ser criado uma nova interface)
 public interface IClinicaService<T> {
-    T consultarPorId(Integer id) throws Exception; // possiveis variações por nome, endereço, consulta ...
+    T consultarPorId(Integer id) throws Exception;
     T cadastrar (T t);
     T atualizar (Integer id, T t);
-    void excluirPorId (Integer id); // possiveis variações...
+    void excluirPorId (Integer id);
+    List<T> findAll();
 }

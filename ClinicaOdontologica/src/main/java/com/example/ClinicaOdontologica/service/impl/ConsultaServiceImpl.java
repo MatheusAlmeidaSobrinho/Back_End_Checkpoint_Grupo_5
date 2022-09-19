@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         if (!optional.isPresent()) {
             throw new NotFound("Id não encontrado");
         }
-        return  modelMapper.map(optional, ConsultaDTO.class);
+        return modelMapper.map(optional, ConsultaDTO.class);
     }
 
     @Override
@@ -48,7 +49,15 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         consultaRepository.deleteById(id);
     }
 
-    public List<Consulta> findAll() {
-        return consultaRepository.findAll();
+    @Override
+    public List<ConsultaDTO> findAll() {
+        List<Consulta> consultas = consultaRepository.findAll();
+        List<ConsultaDTO> consultaDTOS = new ArrayList<>();
+
+        for (Consulta consulta : consultas) {
+            ConsultaDTO consultaDTO = modelMapper.map(consulta, ConsultaDTO.class);
+            consultaDTOS.add(consultaDTO);
+        }
+        return consultaDTOS;
     }
 }
