@@ -29,7 +29,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO consultarPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public DentistaDTO consultarPorId(Integer id) {
         Optional<Dentista> dentista = dentistaRepository.findById(id);
         if (dentista.isEmpty()) {
             throw new NotFound("Dentista não encontrado!");
@@ -43,7 +43,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public DentistaDTO atualizar(Integer id, DentistaDTO dentistaDTO) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public DentistaDTO atualizar(Integer id, DentistaDTO dentistaDTO) {
         DentistaDTO dentist = consultarPorId(id);
         dentistaDTO.setId(dentist.getId());
         dentistaRepository.saveAndFlush(modelMapper.map(dentistaDTO, Dentista.class));
@@ -51,7 +51,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO> {
     }
 
     @Override
-    public void excluirPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public void excluirPorId(Integer id) {
         consultarPorId(id);
         dentistaRepository.deleteById(id);
     }

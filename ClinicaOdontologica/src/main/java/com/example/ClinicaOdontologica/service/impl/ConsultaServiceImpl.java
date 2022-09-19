@@ -7,12 +7,11 @@ import com.example.ClinicaOdontologica.repository.ConsultaRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
@@ -23,24 +22,41 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     @Autowired
     private ConsultaRepository consultaRepository;
 
+    @Autowired
+    private PacienteServiceImpl pacienteService;
+
+    @Autowired
+    private DentistaServiceImpl dentistaService;
+
     @Override
     public ConsultaDTO cadastrar(ConsultaDTO consultaDTO) {
-        consultaRepository.save(modelMapper.map(consultaDTO, Consulta.class));
-        return consultaDTO;
+        pacienteService.consultarPorId(consultaDTO.getPacienteId());
+        dentistaService.consultarPorId(consultaDTO.getDentistaId());
+        Consulta consulta = consultaRepository.save(modelMapper.map(consultaDTO, Consulta.class));
+        return modelMapper.map(consulta, ConsultaDTO.class);
     }
 
     @Override
     public ConsultaDTO consultarPorId(Integer id) {
-        Optional<Consulta> optional = consultaRepository.findById(id);
-        if (!optional.isPresent()) {
-            throw new NotFound("Id não encontrado");
+        Optional<Consulta> consult = consultaRepository.findById(id);
+        if (consult.isEmpty()) {
+            throw new NotFound("Consulta não encontrada");
         }
-        return modelMapper.map(optional, ConsultaDTO.class);
+        return modelMapper.map(consult.get(), ConsultaDTO.class);
+    }
+
+    @Override
+    public List<ConsultaDTO> findAll() {
+        return consultaRepository.findAll().stream()
+                .map(consultas -> modelMapper.map(consultas, ConsultaDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public ConsultaDTO atualizar(Integer id, ConsultaDTO consultaDTO) {
-        return null;
+        ConsultaDTO consult = this.consultarPorId(id);
+        consultaDTO.setId(consult.getId());
+        consultaRepository.saveAndFlush(modelMapper.map(consultaDTO, Consulta.class));
+        return consultaDTO;
     }
 
     @Override
@@ -49,15 +65,4 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         consultaRepository.deleteById(id);
     }
 
-    @Override
-    public List<ConsultaDTO> findAll() {
-        List<Consulta> consultas = consultaRepository.findAll();
-        List<ConsultaDTO> consultaDTOS = new ArrayList<>();
-
-        for (Consulta consulta : consultas) {
-            ConsultaDTO consultaDTO = modelMapper.map(consulta, ConsultaDTO.class);
-            consultaDTOS.add(consultaDTO);
-        }
-        return consultaDTOS;
-    }
 }

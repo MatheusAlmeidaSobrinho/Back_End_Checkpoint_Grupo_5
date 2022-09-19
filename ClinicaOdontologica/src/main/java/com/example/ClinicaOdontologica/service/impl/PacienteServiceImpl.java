@@ -57,8 +57,8 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
 
     @Override
     public void excluirPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
-        this.consultarPorId(id);
-        this.pacienteRepository.deleteById(id);
+        consultarPorId(id);
+        pacienteRepository.deleteById(id);
     }
 
 }

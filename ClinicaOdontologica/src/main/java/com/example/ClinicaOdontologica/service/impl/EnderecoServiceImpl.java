@@ -29,7 +29,7 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     }
 
     @Override
-    public EnderecoDTO consultarPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public EnderecoDTO consultarPorId(Integer id) {
         Optional<Endereco> address = enderecoRepository.findById(id);
         if (address.isEmpty()) {
             throw new NotFound("Endereço não encontrado!");
@@ -43,7 +43,7 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     }
 
     @Override
-    public EnderecoDTO atualizar(Integer id, EnderecoDTO enderecoDTO) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public EnderecoDTO atualizar(Integer id, EnderecoDTO enderecoDTO) {
         EnderecoDTO address = consultarPorId(id);
         enderecoDTO.setId(address.getId());
         enderecoRepository.saveAndFlush(modelMapper.map(enderecoDTO, Endereco.class));
@@ -51,7 +51,7 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     }
 
     @Override
-    public void excluirPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public void excluirPorId(Integer id) {
         consultarPorId(id);
         enderecoRepository.deleteById(id);
     }
