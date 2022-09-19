@@ -6,5 +6,4 @@ public class NotFound extends RuntimeException{
         super(message);
     }
 
-
 }
