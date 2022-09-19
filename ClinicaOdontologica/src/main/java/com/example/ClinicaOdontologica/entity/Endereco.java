@@ -1,6 +1,5 @@
 package com.example.ClinicaOdontologica.entity;
 
-import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,15 +21,4 @@ public class Endereco {
     private String cidade;
     private String cep;
 
-    public Endereco(EnderecoDTO enderecoDTO) {
-        this.id = enderecoDTO.getId();
-        this.rua = enderecoDTO.getRua();
-        this.numero = enderecoDTO.getNumero();
-        this.bairro = enderecoDTO.getBairro();
-        this.cidade = enderecoDTO.getCidade();
-        this.cep = enderecoDTO.getCep();
-    }
-
-    public Endereco() {
-    }
 }

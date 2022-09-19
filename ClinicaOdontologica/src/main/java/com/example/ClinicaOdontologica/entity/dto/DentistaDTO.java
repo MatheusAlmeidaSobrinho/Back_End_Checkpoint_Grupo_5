@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class DentistaDTO {
 
+    private Integer id;
     private String nome;
     private String sobrenome;
     private Integer matricula;

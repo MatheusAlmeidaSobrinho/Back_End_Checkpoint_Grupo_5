@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,44 +28,32 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
         return modelMapper.map(endereco, EnderecoDTO.class);
     }
 
-//    @Override
-//    public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
-//        Endereco endereco = new Endereco(enderecoDTO);
-//        endereco = enderecoRepository.save(endereco);
-//        enderecoDTO = new EnderecoDTO(endereco);
-//        return enderecoDTO;
-//    }
-
-    public List<EnderecoDTO> findAll() {
-        return  enderecoRepository.findAll().stream()
-                .map(enderecos -> modelMapper.map(enderecos, EnderecoDTO.class)).collect(Collectors.toList());
-    }
-
     @Override
-    public EnderecoDTO consultarPorId(Integer id) {
+    public EnderecoDTO consultarPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
         Optional<Endereco> address = enderecoRepository.findById(id);
-        if(address.isEmpty()){
+        if (address.isEmpty()) {
             throw new NotFound("Endereço não encontrado!");
         }
         return modelMapper.map(address.get(), EnderecoDTO.class);
     }
 
+    public List<EnderecoDTO> findAll() {
+        return enderecoRepository.findAll().stream()
+                .map(enderecos -> modelMapper.map(enderecos, EnderecoDTO.class)).collect(Collectors.toList());
+    }
+
     @Override
-    public EnderecoDTO atualizar(Integer id ,EnderecoDTO enderecoDTO) {
-        EnderecoDTO address  = consultarPorId(id);
+    public EnderecoDTO atualizar(Integer id, EnderecoDTO enderecoDTO) { // falta tratamento para o postman em caso do ID nao existir ainda
+        EnderecoDTO address = consultarPorId(id);
         enderecoDTO.setId(address.getId());
         enderecoRepository.saveAndFlush(modelMapper.map(enderecoDTO, Endereco.class));
         return enderecoDTO;
     }
 
     @Override
-    public void excluirPorId(Integer id) {
+    public void excluirPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
         consultarPorId(id);
         enderecoRepository.deleteById(id);
-    }
-
-    public boolean ifEnderecoExists(int id) {
-        return enderecoRepository.existsById(id);
     }
 
 }

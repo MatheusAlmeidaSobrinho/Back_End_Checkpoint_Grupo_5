@@ -16,9 +16,7 @@ public class Dentista {
     private Integer id;
 
     private String nome;
-
     private String sobrenome;
-
     private Integer matricula;
 
 }

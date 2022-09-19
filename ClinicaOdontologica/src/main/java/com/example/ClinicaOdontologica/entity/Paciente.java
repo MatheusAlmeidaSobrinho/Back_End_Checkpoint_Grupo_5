@@ -17,7 +17,6 @@ public class Paciente {
     private Integer id;
 
     private String nome;
-
     private String sobrenome;
 
     @ManyToOne

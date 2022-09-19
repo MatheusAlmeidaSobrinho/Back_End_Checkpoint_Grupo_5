@@ -1,7 +1,5 @@
 package com.example.ClinicaOdontologica.controller;
 
-import com.example.ClinicaOdontologica.common.config.ValidationPaciente;
-import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
 import com.example.ClinicaOdontologica.service.impl.PacienteServiceImpl;
 import org.modelmapper.ModelMapper;
@@ -11,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -20,39 +19,32 @@ public class PacienteController {
     PacienteServiceImpl pacienteService;
 
     @Autowired
-    private ModelMapper mapper;
+    private ModelMapper modelMapper;
 
-    private ValidationPaciente validationPaciente = new ValidationPaciente();
-
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @Transactional
-//    public ResponseEntity<PacienteDTO> cadastrar(@RequestBody PacienteDTO pacienteDTO) {
-//        ResponseEntity responseEntity = null;
-//
-//        String erro = validationPaciente.ValidacaoDePaciente(pacienteDTO);
-//
-//        if (erro == null) {
-//            PacienteDTO pacienteDTO1 = pacienteService.cadastrar(pacienteDTO);
-//            if (pacienteDTO1.getId() != 0)
-//                responseEntity = new ResponseEntity<>("Endereço não existe", HttpStatus.BAD_REQUEST);
-//            responseEntity = new ResponseEntity<>(pacienteDTO1, HttpStatus.OK);
-//        } else {
-//            responseEntity = new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
-//        }
-//        return responseEntity;
-//    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping()
+    //@ResponseStatus(HttpStatus.CREATED) // precisa? qual a finalidade?
     @Transactional
-    public PacienteDTO cadastrar(@RequestBody PacienteDTO pacienteDTO) {
-        return pacienteService.cadastrar(pacienteDTO);
+    public ResponseEntity<PacienteDTO> cadastrar(@RequestBody PacienteDTO pacienteDTO) {
+        ResponseEntity responseEntity = null;
+
+        if (pacienteDTO.getNome() != null) {
+            PacienteDTO pacienteDTO1 = pacienteService.cadastrar(pacienteDTO);
+            responseEntity = new ResponseEntity(pacienteDTO1, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity("Nome não preenchido", HttpStatus.BAD_REQUEST);
+        }
+
+        return responseEntity;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PacienteDTO> consultarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(mapper.map(pacienteService.consultarPorId(id), PacienteDTO.class));
+        return ResponseEntity.ok().body(modelMapper.map(pacienteService.consultarPorId(id), PacienteDTO.class));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PacienteDTO>> findAll() {
+        return ResponseEntity.ok().body(pacienteService.findAll());
     }
 
     @PutMapping("/{id}")

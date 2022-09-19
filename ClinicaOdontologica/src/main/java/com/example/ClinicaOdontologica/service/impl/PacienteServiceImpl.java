@@ -1,19 +1,17 @@
 package com.example.ClinicaOdontologica.service.impl;
 
 import com.example.ClinicaOdontologica.common.exception.NotFound;
-import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.Paciente;
-import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
 import com.example.ClinicaOdontologica.repository.PacienteRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
@@ -35,31 +33,32 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO> {
     }
 
     @Override
-    public PacienteDTO consultarPorId(Integer id) {
+    public PacienteDTO consultarPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
         Optional<Paciente> entity = pacienteRepository.findById(id);
-        if(entity.isEmpty()){
+        if (entity.isEmpty()) {
             throw new NotFound("Paciente não encontrado!");
         }
         return modelMapper.map(entity.get(), PacienteDTO.class);
     }
 
     @Override
-    public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) {
+    public List<PacienteDTO> findAll() {
+        return pacienteRepository.findAll().stream()
+                .map(pacientes -> modelMapper.map(pacientes, PacienteDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) { // falta tratamento para o postman em caso do ID nao existir ainda
         PacienteDTO entity = this.consultarPorId(id);
         pacienteDTO.setId(entity.getId());
-        pacienteRepository.saveAndFlush(modelMapper.map(pacienteDTO,Paciente.class));
+        pacienteRepository.saveAndFlush(modelMapper.map(pacienteDTO, Paciente.class));
         return pacienteDTO;
     }
 
     @Override
-    public void excluirPorId(Integer id) {
+    public void excluirPorId(Integer id) { // falta tratamento para o postman em caso do ID nao existir ainda
         this.consultarPorId(id);
         this.pacienteRepository.deleteById(id);
-    }
-
-    @Override
-    public List<PacienteDTO> findAll() {
-        return null;
     }
 
 }

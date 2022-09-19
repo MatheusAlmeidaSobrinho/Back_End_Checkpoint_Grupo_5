@@ -1,8 +1,11 @@
 package com.example.ClinicaOdontologica.controller;
 
 import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,20 +19,32 @@ public class DentistaController {
     @Autowired
     private DentistaServiceImpl dentistaService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @PostMapping()
     @Transactional
-    public DentistaDTO cadastrar(@RequestBody DentistaDTO dentistaDTO){
-        return dentistaService.cadastrar(dentistaDTO);
+    public ResponseEntity<DentistaDTO> cadastrar(@RequestBody DentistaDTO dentistaDTO) {
+        ResponseEntity responseEntity = null;
+
+        if (dentistaDTO.getMatricula() != null) {
+            DentistaDTO dentistaDTO1 = dentistaService.cadastrar(dentistaDTO);
+            responseEntity = new ResponseEntity(dentistaDTO1, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity("Matricula não preenchida", HttpStatus.BAD_REQUEST);
+        }
+
+        return responseEntity;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DentistaDTO> consultarPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(modelMapper.map(dentistaService.consultarPorId(id), DentistaDTO.class));
     }
 
     @GetMapping
     public ResponseEntity<List<DentistaDTO>> findAll() {
         return ResponseEntity.ok().body(dentistaService.findAll());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<DentistaDTO> consultarPorId(@PathVariable int id) {
-        return ResponseEntity.ok().body(dentistaService.consultarPorId(id));
     }
 
     @PutMapping("/{id}")
