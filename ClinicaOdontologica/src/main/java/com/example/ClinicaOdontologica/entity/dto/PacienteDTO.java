@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.entity.dto;
 
+import com.example.ClinicaOdontologica.enums.Roles;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,5 +14,8 @@ public class PacienteDTO {
     private Integer enderecoId;
     private String rg;
     private Date dataDeAlta;
+    private Roles roles;
+    private String email;
+    private String senha;
 
 }
