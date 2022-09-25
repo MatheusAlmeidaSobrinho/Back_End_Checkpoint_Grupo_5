@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.service.impl;
 
-import com.example.ClinicaOdontologica.common.exception.NotFound;
+import com.example.ClinicaOdontologica.common.exception.NotFoundException;
 import com.example.ClinicaOdontologica.entity.Consulta;
 import com.example.ClinicaOdontologica.entity.dto.ConsultaDTO;
 import com.example.ClinicaOdontologica.repository.ConsultaRepository;
@@ -40,7 +40,7 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     public ConsultaDTO consultarPorId(Integer id) {
         Optional<Consulta> consult = consultaRepository.findById(id);
         if (consult.isEmpty()) {
-            throw new NotFound("Consulta não encontrada");
+            throw new NotFoundException("Consulta não encontrada");
         }
         return modelMapper.map(consult.get(), ConsultaDTO.class);
     }

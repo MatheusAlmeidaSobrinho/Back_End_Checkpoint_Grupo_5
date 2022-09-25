@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.service.impl;
 
-import com.example.ClinicaOdontologica.common.exception.NotFound;
+import com.example.ClinicaOdontologica.common.exception.NotFoundException;
 import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.repository.EnderecoRepository;
@@ -32,7 +32,7 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     public EnderecoDTO consultarPorId(Integer id) {
         Optional<Endereco> address = enderecoRepository.findById(id);
         if (address.isEmpty()) {
-            throw new NotFound("Endereço não encontrado!");
+            throw new NotFoundException("Endereço não encontrado!");
         }
         return modelMapper.map(address.get(), EnderecoDTO.class);
     }

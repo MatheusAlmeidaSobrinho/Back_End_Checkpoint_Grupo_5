@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.entity.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -11,5 +12,4 @@ public class EnderecoDTO {
     private String bairro;
     private String cidade;
     private String cep;
-
 }
