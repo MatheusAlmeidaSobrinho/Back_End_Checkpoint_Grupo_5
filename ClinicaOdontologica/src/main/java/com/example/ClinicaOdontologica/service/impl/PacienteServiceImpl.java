@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.service.impl;
 
-
+import com.example.ClinicaOdontologica.common.exception.NotFoundException;
 import com.example.ClinicaOdontologica.common.exception.NotFoundException;
 import com.example.ClinicaOdontologica.common.exception.PasswordInvalidException;
 import com.example.ClinicaOdontologica.entity.Paciente;
