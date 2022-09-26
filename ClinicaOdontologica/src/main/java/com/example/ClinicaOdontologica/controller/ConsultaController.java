@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class ConsultaController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<ConsultaDTO> cadastrar(@RequestBody ConsultaDTO consultaDTO) {
+    public ResponseEntity<ConsultaDTO> cadastrar(@RequestBody @Valid ConsultaDTO consultaDTO) {
         ResponseEntity responseEntity = null;
 
         if (consultaDTO.getDentistaId() != null && consultaDTO.getPacienteId() != null) {
@@ -48,7 +49,7 @@ public class ConsultaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<ConsultaDTO> atualizar(@PathVariable Integer id, @RequestBody ConsultaDTO consultaDTO) {
+    public ResponseEntity<ConsultaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid ConsultaDTO consultaDTO) {
         return ResponseEntity.ok().body(consultaService.atualizar(id, consultaDTO));
     }
 

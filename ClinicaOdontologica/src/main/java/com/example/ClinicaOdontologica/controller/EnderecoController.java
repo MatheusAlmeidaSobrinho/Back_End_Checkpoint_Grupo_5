@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class EnderecoController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<EnderecoDTO> cadastrar(@RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<EnderecoDTO> cadastrar(@RequestBody @Valid EnderecoDTO enderecoDTO) {
         ResponseEntity responseEntity = null;
 
         if (enderecoDTO.getRua() != null) {
@@ -47,7 +48,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer id, @RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid EnderecoDTO enderecoDTO) {
         return ResponseEntity.ok().body(enderecoService.atualizar(id, enderecoDTO));
     }
 
