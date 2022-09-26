@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class DentistaController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<DentistaDTO> cadastrar(@RequestBody DentistaDTO dentistaDTO) {
+    public ResponseEntity<DentistaDTO> cadastrar(@RequestBody @Valid DentistaDTO dentistaDTO) {
         ResponseEntity responseEntity = null;
 
         if (dentistaDTO.getMatricula() != null) {
@@ -57,7 +58,7 @@ public class DentistaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody DentistaDTO dentistaDTO){
+    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid DentistaDTO dentistaDTO){
         return ResponseEntity.ok().body(dentistaService.atualizar(id, dentistaDTO));
     }
     @DeleteMapping("/{id}")
@@ -70,7 +71,7 @@ public class DentistaController {
 
     @PostMapping("/auth")
     @Transactional
-    public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody CredenciaisDTO credenciais) {
+    public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody @Valid CredenciaisDTO credenciais) {
         try {
             dentistaService.autenticar(credenciais);
             final String jwt = jwtService.gerarToken(credenciais);
