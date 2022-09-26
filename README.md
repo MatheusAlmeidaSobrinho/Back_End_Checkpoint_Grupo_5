@@ -1,5 +1,5 @@
 <h3>PROJETO SISTEMA DE RESERVA DE CONSULTAS</h3>
-<h3>Descrição do projeto: Desenvolvimento de um sistema que permite o registro de consultas junto a entidades como dentista e paciente.</h3>
+<h3>### Descrição do projeto: Desenvolvimento de um sistema que permite o registro de consultas junto a entidades como dentista e paciente.</h3>
 
 
 <h3>### Stacks Necessárias :high_brightness: :high_brightness: </h3> 
@@ -35,7 +35,7 @@
 <ul>:white_check_mark: usuário logado poderá registrar uma consulta</ul>
 <ul>:white_check_mark: usuário da empresa com acesso ao sistema poderá gerenciar os dados dos dentistas, pacientes e das consultas</ul>
 
-<h3>:rocket: :rocket: :rocket: Autores</h3>
+<h3>:rocket: :rocket: :rocket: Desenvolvedores</h3>
 <h3>Matheus Almeida</h3>
 <h3>Tawan Silva</h3>
 <h3>João Figueredo</h3>
