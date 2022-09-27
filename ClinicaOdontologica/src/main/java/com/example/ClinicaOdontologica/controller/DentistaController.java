@@ -48,7 +48,7 @@ public class DentistaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DentistaDTO> consultarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(modelMapper.map(dentistaService.consultarPorId(id), DentistaDTO.class));
+        return ResponseEntity.ok().body(dentistaService.consultarPorId(id));
     }
 
     @GetMapping
@@ -58,12 +58,13 @@ public class DentistaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid DentistaDTO dentistaDTO){
+    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid DentistaDTO dentistaDTO) {
         return ResponseEntity.ok().body(dentistaService.atualizar(id, dentistaDTO));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluirPorId(@PathVariable int id){
+    public ResponseEntity excluirPorId(@PathVariable int id) {
         dentistaService.excluirPorId(id);
         return ResponseEntity.noContent().build();
     }

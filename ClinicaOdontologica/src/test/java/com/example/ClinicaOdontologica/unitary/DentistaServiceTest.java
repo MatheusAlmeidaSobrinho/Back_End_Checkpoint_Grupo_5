@@ -70,9 +70,6 @@ public class DentistaServiceTest implements Serializable {
     @Order(2)
     void listDentistaTest() {
         List<Dentista> dentistaList = dentistaMock.getList();
-//        DentistaDTO dentistaDTO = dentistaMock.getDentistaRequestDTO();
-
-//        when(modelMapper.map(any(), any())).thenReturn(dentistaDTO);
         when(dentistaRepository.findAll()).thenReturn(dentistaList);
 
         List<DentistaDTO> dentista = dentistaService.findAll();
@@ -85,8 +82,6 @@ public class DentistaServiceTest implements Serializable {
     @Test
     @Order(3)
     void getDentistaByIdTest() {
-        DentistaDTO dentistaDTO = dentistaMock.getDentistaRequestDTO();
-        when(modelMapper.map(any(), any())).thenReturn(dentistaDTO);
         Dentista dentista = dentistaMock.getDentistaWithId();
         when(dentistaRepository.findById(99999)).thenReturn(Optional.ofNullable(dentista));
         DentistaDTO dentistaFound = dentistaService.consultarPorId(dentista.getId());

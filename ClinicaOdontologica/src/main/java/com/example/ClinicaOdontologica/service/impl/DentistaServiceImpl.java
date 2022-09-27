@@ -43,14 +43,15 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
         }
         throw new PasswordInvalidException("Senha inválida.");
     }
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Dentista dentista = dentistaRepository.findByEmail(login)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
-        String[] roles = new String[] { String.valueOf(dentista.getRoles()) };
+        String[] roles = new String[]{String.valueOf(dentista.getRoles())};
 
-      return User
+        return User
                 .builder()
                 .username(dentista.getEmail())
                 .password(dentista.getSenha())
@@ -63,30 +64,30 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
     public DentistaDTO cadastrar(DentistaDTO dentistaDTO) {
         String password = bCryptPasswordEncoder.encode(dentistaDTO.getSenha());
         dentistaDTO.setSenha(password);
-        Dentista dentista = dentistaRepository.save(modelMapper.map(dentistaDTO, Dentista.class));
-        return modelMapper.map(dentista, DentistaDTO.class);
+        Dentista dentista = dentistaRepository.save(convertDentistaDTOIntoDentista(dentistaDTO));
+        return convertDentistaIntoDentistaDTO(dentista);
     }
 
     @Override
     public DentistaDTO consultarPorId(Integer id) {
-        Optional<Dentista> dentista = dentistaRepository.findById(id);
-        if (dentista.isEmpty()) {
+        Optional<Dentista> dentistaById = dentistaRepository.findById(id);
+        if (dentistaById.isEmpty()) {
             throw new NotFoundException("Dentista não encontrado!");
         }
-        return modelMapper.map(dentista.get(), DentistaDTO.class);
+        return convertDentistaIntoDentistaDTO(dentistaById.get());
     }
 
     public List<DentistaDTO> findAll() {
         return dentistaRepository.findAll().stream()
-                .map(dentistas -> modelMapper.map(dentistas, DentistaDTO.class)).collect(Collectors.toList());
+                .map(this::convertDentistaIntoDentistaDTO).collect(Collectors.toList());
     }
 
     @Override
     public DentistaDTO atualizar(Integer id, DentistaDTO dentistaDTO) {
-        DentistaDTO dentist = consultarPorId(id);
-        dentistaDTO.setId(dentist.getId());
-        dentistaRepository.saveAndFlush(modelMapper.map(dentistaDTO, Dentista.class));
-        return dentistaDTO;
+        DentistaDTO dentistaById = consultarPorId(id);
+        Dentista dentista = convertDentistaDTOIntoDentista(dentistaById);
+        Dentista dentistaSaved = dentistaRepository.saveAndFlush(dentista);
+        return convertDentistaIntoDentistaDTO(dentistaSaved);
     }
 
     @Override
@@ -95,4 +96,28 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
         dentistaRepository.deleteById(id);
     }
 
+    private Dentista convertDentistaDTOIntoDentista(DentistaDTO dentistaDTO) {
+        return Dentista.builder()
+                .id(dentistaDTO.getId())
+                .nome(dentistaDTO.getNome())
+                .sobrenome(dentistaDTO.getSobrenome())
+                .email(dentistaDTO.getEmail())
+                .senha(dentistaDTO.getSenha())
+                .cro(dentistaDTO.getCro())
+                .matricula(dentistaDTO.getMatricula())
+                .build();
+    }
+
+    private DentistaDTO convertDentistaIntoDentistaDTO(Dentista dentista) {
+        return DentistaDTO.builder()
+                .id(dentista.getId())
+                .nome(dentista.getNome())
+                .sobrenome(dentista.getSobrenome())
+                .email(dentista.getEmail())
+                .senha(dentista.getSenha())
+                .cro(dentista.getCro()).
+                matricula(dentista.getMatricula())
+                .roles(dentista.getRoles())
+                .build();
+    }
 }
