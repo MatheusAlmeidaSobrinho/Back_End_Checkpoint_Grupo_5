@@ -4,7 +4,6 @@ import com.example.ClinicaOdontologica.builder.DentistaBuilder;
 import com.example.ClinicaOdontologica.endpoint.DentistaEndpoint;
 import com.example.ClinicaOdontologica.entity.dto.CredenciaisDTO;
 import com.example.ClinicaOdontologica.security.JwtService;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.DentistaMock;
 import org.junit.jupiter.api.*;
@@ -47,8 +46,8 @@ class DentistaControllerTest {
     @Order(1)
     void save() throws Exception {
         CredenciaisDTO credenciaisDTO = new CredenciaisDTO();
-        credenciaisDTO.setLogin("matheus"+ Math.floor(1 + (Math.random() * (99999 - 1)))+"@gmail.com");
-        credenciaisDTO.setSenha("1" + Math.floor(1 + (Math.random() * (99999 - 1))));
+        credenciaisDTO.setLogin("tawan@gmail.com");
+        credenciaisDTO.setSenha("1234");
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 
@@ -58,10 +57,10 @@ class DentistaControllerTest {
 
     @Test
     @Order(2)
-    void listTest() throws Exception{
+    void listTest() throws Exception {
         CredenciaisDTO credenciaisDTO = new CredenciaisDTO();
-        credenciaisDTO.setLogin("matheus"+ (1 + (Math.random() * (99999 - 1)))+"@gmail.com");
-        credenciaisDTO.setSenha("1" + (1 + (Math.random() * (99999 - 1))));
+        credenciaisDTO.setLogin("tawan@gmail.com");
+        credenciaisDTO.setSenha("1234");
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 

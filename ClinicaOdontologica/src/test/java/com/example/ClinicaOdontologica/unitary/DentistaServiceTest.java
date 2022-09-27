@@ -7,21 +7,22 @@ import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
 import common.DentistaMock;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,6 +43,8 @@ public class DentistaServiceTest implements Serializable {
     @Mock
     EntityManager entityManager;
 
+    @Mock
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @BeforeEach
@@ -51,7 +54,7 @@ public class DentistaServiceTest implements Serializable {
 
     @Test
     @Order(1)
-    void saveDentistaSuccessTest(){
+    void saveDentistaSuccessTest() {
         DentistaDTO request = dentistaMock.getDentistaRequestDTO();
         Dentista response = dentistaMock.getDentistaWithId();
 
@@ -61,6 +64,33 @@ public class DentistaServiceTest implements Serializable {
 
         assertNotEquals(0, response.getId());
         assertEquals(dentista.getNome(), response.getNome());
+    }
+
+    @Test
+    @Order(2)
+    void listDentistaTest() {
+        List<Dentista> dentistaList = dentistaMock.getList();
+//        DentistaDTO dentistaDTO = dentistaMock.getDentistaRequestDTO();
+
+//        when(modelMapper.map(any(), any())).thenReturn(dentistaDTO);
+        when(dentistaRepository.findAll()).thenReturn(dentistaList);
+
+        List<DentistaDTO> dentista = dentistaService.findAll();
+
+        for (int i = 0; i < dentistaList.size(); i++) {
+            assertEquals(dentistaList.get(i).getNome(), dentista.get(i).getNome());
+        }
+    }
+
+    @Test
+    @Order(3)
+    void getDentistaByIdTest() {
+        DentistaDTO dentistaDTO = dentistaMock.getDentistaRequestDTO();
+        when(modelMapper.map(any(), any())).thenReturn(dentistaDTO);
+        Dentista dentista = dentistaMock.getDentistaWithId();
+        when(dentistaRepository.findById(99999)).thenReturn(Optional.ofNullable(dentista));
+        DentistaDTO dentistaFound = dentistaService.consultarPorId(dentista.getId());
+        assertEquals(dentista.getId(), dentistaFound.getId());
     }
 
 }

@@ -63,7 +63,6 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
     public DentistaDTO cadastrar(DentistaDTO dentistaDTO) {
         String password = bCryptPasswordEncoder.encode(dentistaDTO.getSenha());
         dentistaDTO.setSenha(password);
-
         Dentista dentista = dentistaRepository.save(modelMapper.map(dentistaDTO, Dentista.class));
         return modelMapper.map(dentista, DentistaDTO.class);
     }
