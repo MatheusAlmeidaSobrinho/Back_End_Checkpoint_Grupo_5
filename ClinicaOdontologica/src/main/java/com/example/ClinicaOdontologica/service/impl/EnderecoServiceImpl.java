@@ -5,7 +5,6 @@ import com.example.ClinicaOdontologica.entity.Endereco;
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.repository.EnderecoRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +16,12 @@ import java.util.stream.Collectors;
 public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
 
     @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
     private EnderecoRepository enderecoRepository;
 
     @Override
     public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO) {
-        Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
-        return modelMapper.map(endereco, EnderecoDTO.class);
+        Endereco endereco = enderecoRepository.save(convertEnderecoDTOIntoEndereco(enderecoDTO));
+        return convertEnderecoIntoEnderecoDTO(endereco);
     }
 
     @Override
@@ -34,20 +30,20 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
         if (address.isEmpty()) {
             throw new NotFoundException("Endereço não encontrado!");
         }
-        return modelMapper.map(address.get(), EnderecoDTO.class);
+        return convertEnderecoIntoEnderecoDTO(address.get());
     }
 
     public List<EnderecoDTO> findAll() {
         return enderecoRepository.findAll().stream()
-                .map(enderecos -> modelMapper.map(enderecos, EnderecoDTO.class)).collect(Collectors.toList());
+                .map(this::convertEnderecoIntoEnderecoDTO).collect(Collectors.toList());
     }
 
     @Override
     public EnderecoDTO atualizar(Integer id, EnderecoDTO enderecoDTO) {
-        EnderecoDTO address = consultarPorId(id);
-        enderecoDTO.setId(address.getId());
-        enderecoRepository.saveAndFlush(modelMapper.map(enderecoDTO, Endereco.class));
-        return enderecoDTO;
+        EnderecoDTO addressById = consultarPorId(id);
+        Endereco address = convertEnderecoDTOIntoEndereco(addressById);
+        Endereco addressSaved = enderecoRepository.saveAndFlush(address);
+        return convertEnderecoIntoEnderecoDTO(addressSaved);
     }
 
     @Override
@@ -56,4 +52,25 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
         enderecoRepository.deleteById(id);
     }
 
+    public Endereco convertEnderecoDTOIntoEndereco(EnderecoDTO enderecoDTO) {
+        return Endereco.builder()
+                .id(enderecoDTO.getId())
+                .rua(enderecoDTO.getRua())
+                .numero(enderecoDTO.getNumero())
+                .bairro(enderecoDTO.getBairro())
+                .cidade(enderecoDTO.getCidade())
+                .cep(enderecoDTO.getCep())
+                .build();
+    }
+
+    private EnderecoDTO convertEnderecoIntoEnderecoDTO(Endereco endereco) {
+        return EnderecoDTO.builder()
+                .id(endereco.getId())
+                .rua(endereco.getRua())
+                .numero(endereco.getNumero())
+                .bairro(endereco.getBairro())
+                .cidade(endereco.getCidade())
+                .cep(endereco.getCep())
+                .build();
+    }
 }

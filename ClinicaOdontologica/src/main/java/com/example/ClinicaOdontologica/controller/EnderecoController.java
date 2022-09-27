@@ -2,7 +2,6 @@ package com.example.ClinicaOdontologica.controller;
 
 import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import com.example.ClinicaOdontologica.service.impl.EnderecoServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +18,10 @@ public class EnderecoController {
     @Autowired
     EnderecoServiceImpl enderecoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @PostMapping()
     @Transactional
     public ResponseEntity<EnderecoDTO> cadastrar(@RequestBody @Valid EnderecoDTO enderecoDTO) {
-        ResponseEntity responseEntity = null;
+        ResponseEntity responseEntity;
 
         if (enderecoDTO.getRua() != null) {
             EnderecoDTO enderecoDTO1 = enderecoService.cadastrar(enderecoDTO);
@@ -39,7 +35,7 @@ public class EnderecoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EnderecoDTO> consultarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(modelMapper.map(enderecoService.consultarPorId(id), EnderecoDTO.class));
+        return ResponseEntity.ok().body(enderecoService.consultarPorId(id));
     }
 
     @GetMapping
