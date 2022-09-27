@@ -7,7 +7,6 @@ import com.example.ClinicaOdontologica.entity.dto.CredenciaisDTO;
 import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.repository.DentistaRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -27,13 +27,13 @@ class PacienteControllerTest {
     @Autowired
     private JwtService jwtService;
 
-    private PacienteMock pacienteMock = new PacienteMock();
+    private final PacienteMock pacienteMock = new PacienteMock();
 
     @Autowired
-    PacienteEndpoint pacienteEndpoint;
+    private PacienteEndpoint pacienteEndpoint;
 
     @Autowired
-    PacienteBuilder pacienteBuilder;
+    private PacienteBuilder pacienteBuilder;
 
     @Test
     @Order(1)
