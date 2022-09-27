@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import static com.example.ClinicaOdontologica.constants.ProfilesConstant.PROFILE_TEST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,25 +32,20 @@ class DentistaControllerTest {
     @Autowired
     private JwtService jwtService;
 
-    private static ObjectMapper mapper = new ObjectMapper();
-
-    private DentistaMock dentistaMock = new DentistaMock();
+    private final DentistaMock dentistaMock = new DentistaMock();
 
     @Autowired
-    private MockMvc mockMvc;
+    private DentistaEndpoint dentistaEndpoint;
 
     @Autowired
-    DentistaEndpoint dentistaEndpoint;
-
-    @Autowired
-    DentistaBuilder dentistaBuilder;
+    private DentistaBuilder dentistaBuilder;
 
     @Test
     @Order(1)
     void save() throws Exception {
         CredenciaisDTO credenciaisDTO = new CredenciaisDTO();
         credenciaisDTO.setLogin("tawan@gmail.com");
-        credenciaisDTO.setSenha("1234");
+        credenciaisDTO.setSenha("12345678");
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 
@@ -60,7 +58,7 @@ class DentistaControllerTest {
     void listTest() throws Exception {
         CredenciaisDTO credenciaisDTO = new CredenciaisDTO();
         credenciaisDTO.setLogin("tawan@gmail.com");
-        credenciaisDTO.setSenha("1234");
+        credenciaisDTO.setSenha("12345678");
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 

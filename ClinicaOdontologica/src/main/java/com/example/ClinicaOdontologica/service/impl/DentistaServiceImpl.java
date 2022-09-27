@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDetailsService {
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -96,7 +93,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
         dentistaRepository.deleteById(id);
     }
 
-    private Dentista convertDentistaDTOIntoDentista(DentistaDTO dentistaDTO) {
+    public Dentista convertDentistaDTOIntoDentista(DentistaDTO dentistaDTO) {
         return Dentista.builder()
                 .id(dentistaDTO.getId())
                 .nome(dentistaDTO.getNome())

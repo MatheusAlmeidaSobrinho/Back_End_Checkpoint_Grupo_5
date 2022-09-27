@@ -15,12 +15,10 @@ import java.net.URI;
 @Component
 public class DentistaEndpoint {
 
-    private static String url = "http://localhost:8080/dentistas";
-
-    @Autowired
-    private TestRestTemplate testRestTemplate = new TestRestTemplate();
-
+    private static final String url = "http://localhost:8080/dentistas";
     private static RestTemplate restTemplate;
+    @Autowired
+    private final TestRestTemplate testRestTemplate = new TestRestTemplate();
 
     public ResponseEntity<String> save(DentistaDTO requestDTO, String accessToken) throws Exception {
         HttpHeaders headers = getHeaderWithBearerToken(accessToken);

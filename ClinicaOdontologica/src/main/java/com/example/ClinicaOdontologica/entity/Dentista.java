@@ -87,26 +87,13 @@ public class Dentista implements UserDetails {
         private String email;
         private String senha;
 
-        public Integer getId() {
-            return id;
-        }
-
         public Dentista.Builder id(Integer id) {
             this.id = id;
             return this;
         }
-
-        public String getNome() {
-            return nome;
-        }
-
         public Dentista.Builder nome(String nome) {
             this.nome = nome;
             return this;
-        }
-
-        public String getSobrenome() {
-            return sobrenome;
         }
 
         public Dentista.Builder sobrenome(String sobrenome) {
@@ -114,17 +101,9 @@ public class Dentista implements UserDetails {
             return this;
         }
 
-        public String getCro() {
-            return cro;
-        }
-
         public Dentista.Builder cro(String cro) {
             this.cro = cro;
             return this;
-        }
-
-        public Integer getMatricula() {
-            return matricula;
         }
 
         public Dentista.Builder matricula(Integer matricula) {
@@ -132,17 +111,9 @@ public class Dentista implements UserDetails {
             return this;
         }
 
-        public String getEmail() {
-            return email;
-        }
-
         public Dentista.Builder email(String email) {
             this.email = email;
             return this;
-        }
-
-        public String getSenha() {
-            return senha;
         }
 
         public Dentista.Builder senha(String senha) {

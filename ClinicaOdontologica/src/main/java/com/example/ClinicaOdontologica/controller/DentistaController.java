@@ -6,7 +6,6 @@ import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.entity.dto.TokenDTO;
 import com.example.ClinicaOdontologica.security.JwtService;
 import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +25,12 @@ public class DentistaController {
     private DentistaServiceImpl dentistaService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private JwtService jwtService;
 
     @PostMapping()
     @Transactional
     public ResponseEntity<DentistaDTO> cadastrar(@RequestBody @Valid DentistaDTO dentistaDTO) {
-        ResponseEntity responseEntity = null;
+        ResponseEntity responseEntity;
 
         if (dentistaDTO.getMatricula() != null) {
             DentistaDTO dentistaDTO1 = dentistaService.cadastrar(dentistaDTO);

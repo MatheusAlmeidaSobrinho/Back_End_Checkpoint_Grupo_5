@@ -41,7 +41,16 @@ public class DentistaMock {
         List<Dentista> dentistaList = new LinkedList<>();
         for (int i = 1; i < 5; i++) {
             Dentista dentista = new Dentista();
-            dentista.setNome("test"+i);
+
+            dentista.setId(i);
+            dentista.setNome("nomeTeste"+ LocalDateTime.now());
+            dentista.setSobrenome("sobrenomeTeste"+ LocalDateTime.now());
+            dentista.setCro("CRO"+ LocalDateTime.now());
+            dentista.setMatricula((int) (1 + Math.floor(Math.random() * 100) + 1));
+            dentista.setEmail("tawan@gmail.com");
+            dentista.setSenha("12345678");
+            dentista.setRoles(ADMIN);
+
             dentistaList.add(dentista);
         }
         return dentistaList;

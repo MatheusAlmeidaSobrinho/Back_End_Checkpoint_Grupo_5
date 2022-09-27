@@ -57,17 +57,9 @@ public class DentistaDTO {
         private String senha;
         private Roles roles;
 
-        public Integer getId() {
-            return id;
-        }
-
         public DentistaDTO.Builder id(Integer id) {
             this.id = id;
             return this;
-        }
-
-        public String getNome() {
-            return nome;
         }
 
         public DentistaDTO.Builder nome(String nome) {
@@ -75,17 +67,9 @@ public class DentistaDTO {
             return this;
         }
 
-        public String getSobrenome() {
-            return sobrenome;
-        }
-
         public DentistaDTO.Builder sobrenome(String sobrenome) {
             this.sobrenome = sobrenome;
             return this;
-        }
-
-        public String getCro() {
-            return cro;
         }
 
         public DentistaDTO.Builder cro(String cro) {
@@ -93,17 +77,9 @@ public class DentistaDTO {
             return this;
         }
 
-        public Integer getMatricula() {
-            return matricula;
-        }
-
         public DentistaDTO.Builder matricula(Integer matricula) {
             this.matricula = matricula;
             return this;
-        }
-
-        public String getEmail() {
-            return email;
         }
 
         public DentistaDTO.Builder email(String email) {
@@ -111,17 +87,9 @@ public class DentistaDTO {
             return this;
         }
 
-        public String getSenha() {
-            return senha;
-        }
-
         public DentistaDTO.Builder senha(String senha) {
             this.senha = senha;
             return this;
-        }
-
-        public Roles getRoles() {
-            return roles;
         }
 
         public DentistaDTO.Builder roles(Roles roles) {
