@@ -3,6 +3,7 @@ package com.example.ClinicaOdontologica.unitary;
 import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
 import com.example.ClinicaOdontologica.repository.PacienteRepository;
+import com.example.ClinicaOdontologica.service.impl.EnderecoServiceImpl;
 import com.example.ClinicaOdontologica.service.impl.PacienteServiceImpl;
 import common.PacienteMock;
 import org.junit.jupiter.api.*;
@@ -30,6 +31,9 @@ public class PacienteServiceTest implements Serializable {
 
     @InjectMocks
     PacienteServiceImpl pacienteService;
+
+    @Mock
+    EnderecoServiceImpl enderecoService;
 
     @Mock
     PacienteRepository pacienteRepository;
@@ -89,6 +93,7 @@ public class PacienteServiceTest implements Serializable {
     void getDentistaByIdTest() {
         Paciente paciente = pacienteMock.getPacienteWithId();
         when(pacienteRepository.findById(99999)).thenReturn(Optional.ofNullable(paciente));
+        assert paciente != null;
         PacienteDTO pacienteDTO = pacienteService.consultarPorId(paciente.getId());
 
         assertEquals(paciente.getId(), pacienteDTO.getId());

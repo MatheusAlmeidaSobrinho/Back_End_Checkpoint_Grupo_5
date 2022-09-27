@@ -11,11 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -89,7 +86,7 @@ public class DentistaServiceTest implements Serializable {
     @Order(3)
     void getDentistaByIdTest() {
         Dentista dentista = dentistaMock.getDentistaWithId();
-        
+
         when(dentistaRepository.findById(99999)).thenReturn(Optional.ofNullable(dentista));
 
         assert dentista != null;
