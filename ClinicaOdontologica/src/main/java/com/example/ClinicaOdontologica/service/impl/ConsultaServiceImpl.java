@@ -7,7 +7,6 @@ import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.entity.dto.ConsultaDTO;
 import com.example.ClinicaOdontologica.repository.ConsultaRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @Autowired
     private ConsultaRepository consultaRepository;

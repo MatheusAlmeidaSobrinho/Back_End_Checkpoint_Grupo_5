@@ -29,9 +29,6 @@ import static org.mockito.Mockito.when;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DentistaServiceTest implements Serializable {
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     private final DentistaMock dentistaMock = new DentistaMock();
 
     @InjectMocks
@@ -39,9 +36,6 @@ public class DentistaServiceTest implements Serializable {
 
     @Mock
     DentistaRepository dentistaRepository;
-
-    @Mock
-    EntityManager entityManager;
 
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
