@@ -42,7 +42,15 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         if (consult.isEmpty()) {
             throw new NotFoundException("Consulta não encontrada");
         }
-        return modelMapper.map(consult.get(), ConsultaDTO.class);
+        //return modelMapper.map(consult.get(), ConsultaDTO.class);
+        ConsultaDTO dto = ConsultaDTO.builder()
+                .id(consult.get().getId())
+//                .pacienteId(consult.get().getPaciente())
+//                .dentistaId(consult.get().getDentista().getId())
+//                .data(consult.get().getData())
+                .build();
+
+        return dto;
     }
 
     @Override
