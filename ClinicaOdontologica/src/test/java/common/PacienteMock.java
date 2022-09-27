@@ -30,6 +30,7 @@ public class PacienteMock {
 
     public Paciente getPacienteWithId() {
         Paciente paciente = new Paciente();
+        paciente.setId(99999);
         paciente.setNome("nomeTest" + LocalDateTime.now());
         paciente.setSobrenome("sobrenomeTest" + LocalDateTime.now());
         paciente.setRg("rgTest" + LocalDateTime.now());
