@@ -1,11 +1,10 @@
 package com.example.ClinicaOdontologica.integration;
 
-import com.example.ClinicaOdontologica.builder.DentistaBuilder;
-import com.example.ClinicaOdontologica.endpoint.DentistaEndpoint;
+import com.example.ClinicaOdontologica.builder.EnderecoBuilder;
+import com.example.ClinicaOdontologica.endpoint.EnderecoEndpoint;
 import com.example.ClinicaOdontologica.entity.dto.CredenciaisDTO;
 import com.example.ClinicaOdontologica.security.JwtService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import common.DentistaMock;
+import common.EnderecoMock;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,10 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 import static com.example.ClinicaOdontologica.constants.ProfilesConstant.PROFILE_TEST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,18 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Profile(PROFILE_TEST)
 @ActiveProfiles(PROFILE_TEST)
 @AutoConfigureMockMvc
-class DentistaControllerTest {
+class EnderecoControllerTest {
 
     @Autowired
     private JwtService jwtService;
 
-    private final DentistaMock dentistaMock = new DentistaMock();
+    private final EnderecoMock enderecoMock = new EnderecoMock();
+    @Autowired
+    private EnderecoEndpoint enderecoEndpoint;
 
     @Autowired
-    private DentistaEndpoint dentistaEndpoint;
-
-    @Autowired
-    private DentistaBuilder dentistaBuilder;
+    private EnderecoBuilder enderecoBuilder;
 
     @Test
     @Order(1)
@@ -49,8 +43,8 @@ class DentistaControllerTest {
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 
-        ResponseEntity<String> dentista = dentistaBuilder.create(accessToken);
-        assertEquals(200, dentista.getStatusCodeValue());
+        ResponseEntity<String> endereco = enderecoBuilder.create(accessToken);
+        assertEquals(200, endereco.getStatusCodeValue());
     }
 
     @Test
@@ -62,7 +56,7 @@ class DentistaControllerTest {
 
         String accessToken = jwtService.gerarToken(credenciaisDTO);
 
-        ResponseEntity<String> response = dentistaEndpoint.getList(accessToken);
+        ResponseEntity<String> response = enderecoEndpoint.getList(accessToken);
         assertEquals(200, response.getStatusCodeValue());
     }
 

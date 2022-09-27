@@ -2,6 +2,8 @@ package com.example.ClinicaOdontologica.service.impl;
 
 import com.example.ClinicaOdontologica.common.exception.NotFoundException;
 import com.example.ClinicaOdontologica.entity.Consulta;
+import com.example.ClinicaOdontologica.entity.Dentista;
+import com.example.ClinicaOdontologica.entity.Paciente;
 import com.example.ClinicaOdontologica.entity.dto.ConsultaDTO;
 import com.example.ClinicaOdontologica.repository.ConsultaRepository;
 import com.example.ClinicaOdontologica.service.IClinicaService;
@@ -32,39 +34,31 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     public ConsultaDTO cadastrar(ConsultaDTO consultaDTO) {
         pacienteService.consultarPorId(consultaDTO.getPacienteId());
         dentistaService.consultarPorId(consultaDTO.getDentistaId());
-        Consulta consulta = consultaRepository.save(modelMapper.map(consultaDTO, Consulta.class));
-        return modelMapper.map(consulta, ConsultaDTO.class);
+        Consulta consulta = consultaRepository.save(convertConsultaDTOIntoConsulta(consultaDTO));
+        return convertConsultaIntoConsultaDTO(consulta);
     }
 
     @Override
     public ConsultaDTO consultarPorId(Integer id) {
-        Optional<Consulta> consult = consultaRepository.findById(id);
-        if (consult.isEmpty()) {
+        Optional<Consulta> consulta = consultaRepository.findById(id);
+        if (consulta.isEmpty()) {
             throw new NotFoundException("Consulta não encontrada");
         }
-        //return modelMapper.map(consult.get(), ConsultaDTO.class);
-        ConsultaDTO dto = ConsultaDTO.builder()
-                .id(consult.get().getId())
-//                .pacienteId(consult.get().getPaciente())
-//                .dentistaId(consult.get().getDentista().getId())
-//                .data(consult.get().getData())
-                .build();
-
-        return dto;
+        return convertConsultaIntoConsultaDTO(consulta.get());
     }
 
     @Override
     public List<ConsultaDTO> findAll() {
         return consultaRepository.findAll().stream()
-                .map(consultas -> modelMapper.map(consultas, ConsultaDTO.class)).collect(Collectors.toList());
+                .map(this::convertConsultaIntoConsultaDTO).collect(Collectors.toList());
     }
 
     @Override
     public ConsultaDTO atualizar(Integer id, ConsultaDTO consultaDTO) {
-        ConsultaDTO consult = this.consultarPorId(id);
-        consultaDTO.setId(consult.getId());
-        consultaRepository.saveAndFlush(modelMapper.map(consultaDTO, Consulta.class));
-        return consultaDTO;
+        ConsultaDTO consultaById = consultarPorId(id);
+        Consulta consulta = convertConsultaDTOIntoConsulta(consultaById);
+        Consulta consultaSaved = consultaRepository.saveAndFlush(consulta);
+        return convertConsultaIntoConsultaDTO(consultaSaved);
     }
 
     @Override
@@ -73,4 +67,26 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
         consultaRepository.deleteById(id);
     }
 
+    private Consulta convertConsultaDTOIntoConsulta(ConsultaDTO consultaDTO) {
+        Dentista dentista = dentistaService.convertDentistaDTOIntoDentista(
+                dentistaService.consultarPorId(consultaDTO.getDentistaId()));
+        Paciente paciente = pacienteService.convertPacienteDTOIntoPaciente(
+                pacienteService.consultarPorId(consultaDTO.getPacienteId()));
+
+        return Consulta.builder()
+                .id(consultaDTO.getId())
+                .paciente(paciente)
+                .dentista(dentista)
+                .data(consultaDTO.getData())
+                .build();
+    }
+
+    private ConsultaDTO convertConsultaIntoConsultaDTO(Consulta consulta) {
+        return ConsultaDTO.builder()
+                .id(consulta.getId())
+                .pacienteId(consulta.getPaciente().getId())
+                .dentistaId(consulta.getDentista().getId())
+                .setData(consulta.getData())
+                .build();
+    }
 }

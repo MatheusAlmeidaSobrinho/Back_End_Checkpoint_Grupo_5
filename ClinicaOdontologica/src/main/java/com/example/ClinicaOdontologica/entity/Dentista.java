@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.entity;
 
+import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.enums.Roles;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -68,5 +69,69 @@ public class Dentista implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+    public static Dentista.Builder builder() {
+        return new Dentista.Builder();
+    }
+
+
+    public static class Builder {
+
+        private Integer id;
+        private String nome;
+        private String sobrenome;
+        private String cro;
+        private Integer matricula;
+        private String email;
+        private String senha;
+
+        public Dentista.Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+        public Dentista.Builder nome(String nome) {
+            this.nome = nome;
+            return this;
+        }
+
+        public Dentista.Builder sobrenome(String sobrenome) {
+            this.sobrenome = sobrenome;
+            return this;
+        }
+
+        public Dentista.Builder cro(String cro) {
+            this.cro = cro;
+            return this;
+        }
+
+        public Dentista.Builder matricula(Integer matricula) {
+            this.matricula = matricula;
+            return this;
+        }
+
+        public Dentista.Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Dentista.Builder senha(String senha) {
+            this.senha = senha;
+            return this;
+        }
+
+        public Dentista build() {
+            Dentista builder = new Dentista();
+            builder.setId(this.id);
+            builder.setNome(this.nome);
+            builder.setSobrenome(this.sobrenome);
+            builder.setEmail(this.email);
+            builder.setSenha(this.senha);
+            builder.setCro(this.cro);
+            builder.setMatricula(this.matricula);
+            return builder;
+        }
+
     }
 }

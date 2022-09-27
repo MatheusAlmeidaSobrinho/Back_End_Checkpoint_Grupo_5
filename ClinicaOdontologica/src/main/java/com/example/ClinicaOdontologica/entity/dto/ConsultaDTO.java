@@ -1,9 +1,6 @@
 package com.example.ClinicaOdontologica.entity.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,18 +33,9 @@ public class ConsultaDTO {
         private Integer dentistaId;
         private Date data;
 
-
-        public Integer getId() {
-            return id;
-        }
-
         public ConsultaDTO.Builder id(Integer id) {
             this.id = id;
             return this;
-        }
-
-        public Integer getPacienteId() {
-            return pacienteId;
         }
 
         public ConsultaDTO.Builder pacienteId(Integer pacienteId) {
@@ -55,18 +43,11 @@ public class ConsultaDTO {
             return this;
         }
 
-        public Integer getDentistaId() {
-            return dentistaId;
-        }
-
-        public ConsultaDTO.Builder setDentistaId(Integer dentistaId) {
+        public ConsultaDTO.Builder dentistaId(Integer dentistaId) {
             this.dentistaId = dentistaId;
             return this;
         }
 
-        public Date getData() {
-            return data;
-        }
         public ConsultaDTO.Builder setData(Date data) {
             this.data = data;
             return this;
@@ -82,7 +63,6 @@ public class ConsultaDTO {
         }
 
     }
-
 
 
 }

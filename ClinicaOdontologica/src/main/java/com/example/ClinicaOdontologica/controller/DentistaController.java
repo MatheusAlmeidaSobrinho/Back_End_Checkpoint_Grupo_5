@@ -6,7 +6,6 @@ import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 import com.example.ClinicaOdontologica.entity.dto.TokenDTO;
 import com.example.ClinicaOdontologica.security.JwtService;
 import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +25,12 @@ public class DentistaController {
     private DentistaServiceImpl dentistaService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private JwtService jwtService;
 
     @PostMapping()
     @Transactional
     public ResponseEntity<DentistaDTO> cadastrar(@RequestBody @Valid DentistaDTO dentistaDTO) {
-        ResponseEntity responseEntity = null;
+        ResponseEntity responseEntity;
 
         if (dentistaDTO.getMatricula() != null) {
             DentistaDTO dentistaDTO1 = dentistaService.cadastrar(dentistaDTO);
@@ -48,7 +44,7 @@ public class DentistaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DentistaDTO> consultarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(modelMapper.map(dentistaService.consultarPorId(id), DentistaDTO.class));
+        return ResponseEntity.ok().body(dentistaService.consultarPorId(id));
     }
 
     @GetMapping
@@ -58,12 +54,13 @@ public class DentistaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid DentistaDTO dentistaDTO){
+    public ResponseEntity<DentistaDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid DentistaDTO dentistaDTO) {
         return ResponseEntity.ok().body(dentistaService.atualizar(id, dentistaDTO));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluirPorId(@PathVariable int id){
+    public ResponseEntity excluirPorId(@PathVariable int id) {
         dentistaService.excluirPorId(id);
         return ResponseEntity.noContent().build();
     }

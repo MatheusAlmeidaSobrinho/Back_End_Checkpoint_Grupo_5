@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.endpoint;
 
-import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
+import com.example.ClinicaOdontologica.entity.dto.EnderecoDTO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -13,17 +13,19 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 
 @Component
-public class DentistaEndpoint {
+public class EnderecoEndpoint {
 
-    private static final String url = "http://localhost:8080/dentistas";
-    private static RestTemplate restTemplate;
+    private final static String url = "http://localhost:8080/enderecos";
+
     @Autowired
     private final TestRestTemplate testRestTemplate = new TestRestTemplate();
 
-    public ResponseEntity<String> save(DentistaDTO requestDTO, String accessToken) throws Exception {
+    private static RestTemplate restTemplate;
+
+    public ResponseEntity<String> save(EnderecoDTO requestDTO, String accessToken) throws Exception {
         HttpHeaders headers = getHeaderWithBearerToken(accessToken);
 
-        RequestEntity<DentistaDTO> requestEntity = RequestEntity
+        RequestEntity<EnderecoDTO> requestEntity = RequestEntity
                 .post(new URI(url))
                 .headers(headers)
                 .body(requestDTO);

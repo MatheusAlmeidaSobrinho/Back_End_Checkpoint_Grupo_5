@@ -6,7 +6,6 @@ import com.example.ClinicaOdontologica.entity.dto.PacienteDTO;
 import com.example.ClinicaOdontologica.entity.dto.TokenDTO;
 import com.example.ClinicaOdontologica.security.JwtService;
 import com.example.ClinicaOdontologica.service.impl.PacienteServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,6 @@ public class PacienteController {
 
     @Autowired
     private JwtService jwtService;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @PostMapping("/auth")
     public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody @Valid CredenciaisDTO credenciais) {
@@ -62,7 +58,7 @@ public class PacienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PacienteDTO> consultarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(modelMapper.map(pacienteService.consultarPorId(id), PacienteDTO.class));
+        return ResponseEntity.ok().body(pacienteService.consultarPorId(id));
     }
 
     @GetMapping

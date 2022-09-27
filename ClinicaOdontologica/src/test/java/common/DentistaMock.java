@@ -4,6 +4,8 @@ import com.example.ClinicaOdontologica.entity.Dentista;
 import com.example.ClinicaOdontologica.entity.dto.DentistaDTO;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.ClinicaOdontologica.enums.Roles.ADMIN;
 
@@ -33,5 +35,24 @@ public class DentistaMock {
         dentista.setRoles(ADMIN);
 
         return dentista;
+    }
+
+    public List<Dentista> getList() {
+        List<Dentista> dentistaList = new LinkedList<>();
+        for (int i = 1; i < 5; i++) {
+            Dentista dentista = new Dentista();
+
+            dentista.setId(i);
+            dentista.setNome("nomeTeste"+ LocalDateTime.now());
+            dentista.setSobrenome("sobrenomeTeste"+ LocalDateTime.now());
+            dentista.setCro("CRO"+ LocalDateTime.now());
+            dentista.setMatricula((int) (1 + Math.floor(Math.random() * 100) + 1));
+            dentista.setEmail("tawan@gmail.com");
+            dentista.setSenha("12345678");
+            dentista.setRoles(ADMIN);
+
+            dentistaList.add(dentista);
+        }
+        return dentistaList;
     }
 }
