@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class PacienteController {
     private ModelMapper modelMapper;
 
     @PostMapping("/auth")
-    public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody CredenciaisDTO credenciais) {
+    public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody @Valid CredenciaisDTO credenciais) {
         try {
 
             pacienteService.autenticar(credenciais);
@@ -46,7 +47,7 @@ public class PacienteController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<PacienteDTO> cadastrar(@RequestBody PacienteDTO pacienteDTO) {
+    public ResponseEntity<PacienteDTO> cadastrar(@RequestBody @Valid PacienteDTO pacienteDTO) {
         ResponseEntity responseEntity = null;
 
         if (pacienteDTO.getNome() != null) {
@@ -71,7 +72,7 @@ public class PacienteController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<PacienteDTO> atualizar(@PathVariable Integer id, @RequestBody PacienteDTO pacienteDTO) {
+    public ResponseEntity<PacienteDTO> atualizar(@PathVariable Integer id, @RequestBody @Valid PacienteDTO pacienteDTO) {
         return ResponseEntity.ok().body(pacienteService.atualizar(id, pacienteDTO));
     }
 
