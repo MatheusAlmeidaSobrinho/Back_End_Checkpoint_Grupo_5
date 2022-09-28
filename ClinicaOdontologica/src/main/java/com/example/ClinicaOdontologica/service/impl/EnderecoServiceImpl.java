@@ -41,8 +41,11 @@ public class EnderecoServiceImpl implements IClinicaService<EnderecoDTO> {
     @Override
     public EnderecoDTO atualizar(Integer id, EnderecoDTO enderecoDTO) {
         EnderecoDTO addressById = consultarPorId(id);
-        Endereco address = convertEnderecoDTOIntoEndereco(addressById);
+        enderecoDTO.setId(addressById.getId());
+
+        Endereco address = convertEnderecoDTOIntoEndereco(enderecoDTO);
         Endereco addressSaved = enderecoRepository.saveAndFlush(address);
+
         return convertEnderecoIntoEnderecoDTO(addressSaved);
     }
 

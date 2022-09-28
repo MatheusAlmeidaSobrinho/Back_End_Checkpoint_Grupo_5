@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,8 +26,11 @@ public class Dentista implements UserDetails {
     private Integer id;
 
     private String nome;
+
     private String sobrenome;
+
     private String cro;
+
     private Integer matricula;
     private String email;
     private String senha;
@@ -86,6 +90,13 @@ public class Dentista implements UserDetails {
         private Integer matricula;
         private String email;
         private String senha;
+        private Roles roles;
+
+
+        public Dentista.Builder roles(Roles role) {
+            this.roles = role;
+            return this;
+        }
 
         public Dentista.Builder id(Integer id) {
             this.id = id;
@@ -130,6 +141,7 @@ public class Dentista implements UserDetails {
             builder.setSenha(this.senha);
             builder.setCro(this.cro);
             builder.setMatricula(this.matricula);
+            builder.setRoles(this.roles);
             return builder;
         }
 

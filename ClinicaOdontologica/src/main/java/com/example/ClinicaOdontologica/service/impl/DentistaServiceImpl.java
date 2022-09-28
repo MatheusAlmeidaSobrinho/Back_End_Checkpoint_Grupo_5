@@ -42,18 +42,20 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Dentista dentista = dentistaRepository.findByEmail(login)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        Optional<Dentista> dentista = dentistaRepository.findByEmail(login);
 
-        String[] roles = new String[]{String.valueOf(dentista.getRoles())};
+                if (dentista.isPresent()) {
+                    String[] roles = new String[]{String.valueOf(dentista.get().getRoles())};
 
-        return User
-                .builder()
-                .username(dentista.getEmail())
-                .password(dentista.getSenha())
-                .roles(roles)
-                .build();
+                    return User
+                            .builder()
+                            .username(dentista.get().getEmail())
+                            .password(dentista.get().getSenha())
+                            .roles(roles)
+                            .build();
+                }
 
+        return null;
     }
 
     @Override
@@ -81,7 +83,9 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
     @Override
     public DentistaDTO atualizar(Integer id, DentistaDTO dentistaDTO) {
         DentistaDTO dentistaById = consultarPorId(id);
-        Dentista dentista = convertDentistaDTOIntoDentista(dentistaById);
+        dentistaDTO.setId(dentistaById.getId());
+
+        Dentista dentista = convertDentistaDTOIntoDentista(dentistaDTO);
         Dentista dentistaSaved = dentistaRepository.saveAndFlush(dentista);
         return convertDentistaIntoDentistaDTO(dentistaSaved);
     }
@@ -101,6 +105,7 @@ public class DentistaServiceImpl implements IClinicaService<DentistaDTO>, UserDe
                 .senha(dentistaDTO.getSenha())
                 .cro(dentistaDTO.getCro())
                 .matricula(dentistaDTO.getMatricula())
+                .roles(dentistaDTO.getRoles())
                 .build();
     }
 
