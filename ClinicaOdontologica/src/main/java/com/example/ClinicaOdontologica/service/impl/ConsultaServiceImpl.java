@@ -52,7 +52,8 @@ public class ConsultaServiceImpl implements IClinicaService<ConsultaDTO> {
     @Override
     public ConsultaDTO atualizar(Integer id, ConsultaDTO consultaDTO) {
         ConsultaDTO consultaById = consultarPorId(id);
-        Consulta consulta = convertConsultaDTOIntoConsulta(consultaById);
+        consultaDTO.setId(consultaById.getId());
+        Consulta consulta = convertConsultaDTOIntoConsulta(consultaDTO);
         Consulta consultaSaved = consultaRepository.saveAndFlush(consulta);
         return convertConsultaIntoConsultaDTO(consultaSaved);
     }

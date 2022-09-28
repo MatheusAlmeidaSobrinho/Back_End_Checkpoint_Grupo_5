@@ -3,6 +3,7 @@ package com.example.ClinicaOdontologica.common.config;
 import com.example.ClinicaOdontologica.security.JwtRequestFilter;
 import com.example.ClinicaOdontologica.security.JwtService;
 import com.example.ClinicaOdontologica.service.impl.DentistaServiceImpl;
+import com.example.ClinicaOdontologica.service.impl.PacienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
@@ -26,6 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DentistaServiceImpl dentistaService;
 
     @Autowired
+    private PacienteServiceImpl pacienteService;
+
+    @Autowired
     private JwtService jwtService;
 
     @Override
@@ -34,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder);
     }
     public OncePerRequestFilter jwtFilter() {
-        return new JwtRequestFilter(dentistaService, jwtService);
+        return new JwtRequestFilter(dentistaService, pacienteService, jwtService);
     }
 
     @Override
@@ -46,24 +50,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers(HttpMethod.POST,"/pacientes/auth")
                         .permitAll()
-                    .antMatchers(HttpMethod.GET,"/destistas", "/dentistas/**")
-                        .hasAnyRole("PACIENTE", "ADMIN")
-                    .antMatchers(HttpMethod.POST, "/destistas", "/dentistas/**")
-                        .hasAnyRole("ADMIN")
-                    .antMatchers(HttpMethod.PUT,"/destistas", "/dentistas/**")
-                        .hasAnyRole("ADMIN")
-                    .antMatchers(HttpMethod.DELETE,"/destistas", "/dentistas/**")
-                        .hasAnyRole("ADMIN")
-                    .antMatchers(HttpMethod.GET,"/pacientes", "/pacientes/**")
-                        .hasAnyRole("PACIENTE", "ADMIN")
-                    .antMatchers(HttpMethod.POST,"/pacientes", "/pacientes/**")
-                        .hasAnyRole("ADMIN")
+                    .antMatchers("/destistas", "/dentistas/**")
+                        .hasAnyRole( "ADMIN")
+                    .antMatchers("/pacientes", "/pacientes/**")
+                        .hasAnyRole( "ADMIN")
                     .antMatchers("/enderecos", "/enderecos/**")
+                        .hasAnyRole( "ADMIN")
+                    .antMatchers(HttpMethod.GET,"/consultas", "/consultas/**")
+                        .hasAnyRole( "PACIENTE", "ADMIN")
+                    .antMatchers(HttpMethod.POST, "/consultas", "/consultas/**")
                         .hasAnyRole("PACIENTE", "ADMIN")
-                    .antMatchers("/consultas", "/consultas/**", "/enderecos", "/enderecos/**")
-                        .hasAnyRole("ADMIN")
-                    .antMatchers("/dentistas/**")
-                        .hasAnyRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/consultas", "/consultas/**")
+                        .hasAnyRole( "ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/consultas", "/consultas/**")
+                        .hasAnyRole( "ADMIN")
                     .anyRequest().authenticated()
                 .and()
                     //.formLogin();

@@ -17,7 +17,7 @@ public class ConsultaDTO {
     @NotNull(message = "{campo.id-dentista.obrigatorio}")
     private Integer dentistaId;
 
-    @NotEmpty(message = "{campo.data-consulta.obrigatorio}")
+    @NotNull(message = "{campo.data-consulta.obrigatorio}")
     private Date data;
 
 

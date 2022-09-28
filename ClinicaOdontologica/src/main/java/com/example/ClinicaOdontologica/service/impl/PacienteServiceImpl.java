@@ -86,9 +86,10 @@ public class PacienteServiceImpl implements IClinicaService<PacienteDTO>, UserDe
     }
 
     @Override
-    public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) { // falta tratamento para o postman em caso do ID nao existir ainda
+    public PacienteDTO atualizar(Integer id, PacienteDTO pacienteDTO) {
         PacienteDTO entity = consultarPorId(id);
-        Paciente paciente = convertPacienteDTOIntoPaciente(entity);
+        pacienteDTO.setId(entity.getId());
+        Paciente paciente = convertPacienteDTOIntoPaciente(pacienteDTO);
         Paciente pacienteSaved = pacienteRepository.saveAndFlush(paciente);
         return convertPacienteIntoPacienteDTO(pacienteSaved);
     }

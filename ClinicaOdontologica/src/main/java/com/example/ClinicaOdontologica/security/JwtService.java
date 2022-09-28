@@ -36,7 +36,7 @@ public class JwtService {
                 .compact();
     }
 
-    private Claims obterClaims(String token ) throws ExpiredJwtException {
+    public Claims obterClaims(String token ) throws ExpiredJwtException {
         return Jwts
                 .parser()
                 .setSigningKey(chaveAssinatura)

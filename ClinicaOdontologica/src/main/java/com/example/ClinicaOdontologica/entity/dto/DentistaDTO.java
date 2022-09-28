@@ -28,10 +28,10 @@ public class DentistaDTO {
     private String email;
     private String senha;
     @NotNull(message = "{campo.roles.obrigatorio}")
+    @Enumerated(EnumType.STRING)
     private Roles roles;
 
-    public DentistaDTO(String nome, String sobrenome, String cro,
-                       Integer matricula, String email, String senha, Roles roles) {
+    public DentistaDTO(String nome, String sobrenome, String cro, Integer matricula, String email, String senha, Roles roles) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cro = cro;
