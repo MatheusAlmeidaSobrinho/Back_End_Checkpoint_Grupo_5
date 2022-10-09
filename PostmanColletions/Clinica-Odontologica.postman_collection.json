@@ -1,0 +1,798 @@
+{
+	"info": {
+		"_postman_id": "b9598e0b-9e65-4549-9700-431ca5c9347c",
+		"name": "Clinica-Odontologica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20378272"
+	},
+	"item": [
+		{
+			"name": "Consulta",
+			"item": [
+				{
+					"name": "Create Consult",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pacienteId\": 1,\r\n    \"dentistaId\": 1,\r\n    \"data\": \"2022-02-02\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/consultas",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consult By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/consultas/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"consultas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Consult By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pacienteId\": 1,\r\n    \"dentistaId\": 1,\r\n    \"data\": \"2022-02-02T00:00:00.888+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/consultas/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"consultas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Consult By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/consultas/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"consultas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Consults",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/consultas",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "Create Pacient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Ronaldo\",\r\n    \"sobrenome\": \"Souza\",\r\n    \"enderecoId\": 1,\r\n    \"rg\": \"20.500.000\",\r\n    \"dataDeAlta\": \"2022-09-01\",\r\n    \"roles\": \"PACIENTE\",\r\n    \"email\": \"ronaldo@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/pacientes",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pacient By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/pacientes/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pacient By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Katia\",\r\n    \"sobrenome\": \"CEbola\",\r\n    \"enderecoId\": 1,\r\n    \"rg\": \"20.800.000\",\r\n    \"dataDeAlta\": \"2022-09-01\",\r\n    \"roles\": \"PACIENTE\",\r\n    \"email\": \"katia@gmail.com\",\r\n    \"senha\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/pacientes/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pacient By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/pacientes/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Pacient",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/pacientes",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dentista",
+			"item": [
+				{
+					"name": "Create Dentist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Giovanna\",\r\n    \"sobrenome\": \"Cristovam\",\r\n    \"cro\": \"1547-5\",\r\n    \"roles\": \"ADMIN\",\r\n    \"matricula\": 223,\r\n    \"email\": \"gio123@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/dentistas",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dentist By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/dentistas/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dentist By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Cebola\",\r\n    \"sobrenome\": \"Cristovam\",\r\n    \"cro\": \"1547-5\",\r\n    \"roles\": \"ADMIN\",\r\n    \"matricula\": 223,\r\n    \"email\": \"gio123@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/dentistas/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Dentist By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/dentistas/2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Dentist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/dentistas",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endereco",
+			"item": [
+				{
+					"name": "Create Adress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rua\": \"Av Potato Fries\",\r\n    \"numero\": 332,\r\n    \"bairro\": \"Vila Intellijava\",\r\n    \"cidade\": \"Potatolandia\",\r\n    \"cep\": \"15895-000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/enderecos",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"enderecos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Adress By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/enderecos/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"enderecos",
+								"1"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Adress By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rua\": \"Av Potato cebolinhas\",\r\n    \"numero\": 332,\r\n    \"bairro\": \"Vila Intellijava\",\r\n    \"cidade\": \"Potatolandia\",\r\n    \"cep\": \"15895-000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/enderecos/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"enderecos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Adress By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/enderecos/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"enderecos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Adress",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenDentista}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenPaciente}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/enderecos",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"enderecos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login Dentista",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"tawan@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/dentistas/auth",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"dentistas",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"ronaldo@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/pacientes/auth",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"pacientes",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "tokenPaciente",
+			"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb25hbGRvQGdtYWlsLmNvbSIsImV4cCI6MTY2NDQxMDcxMX0.BN6SWGwu7bvA5kQTW4gPIuyi33fq0iWCJmKWEQbqkLaoJoA-3y5JpaMnntW5aIF-xkmcE6qOS-R5c3PSyFPR8g",
+			"type": "string"
+		},
+		{
+			"key": "tokenDentista",
+			"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YXdhbkBnbWFpbC5jb20iLCJleHAiOjE2NjQ0MDgzODh9.CLBh0oF3H_b3-9FM8yPPBie1QmCJnf4nmnAQ4fB-cr5vPYPGdZ3EK-wJ8lzo_Jxmgff7PHxusYHCHQeaItteyQ",
+			"type": "string"
+		}
+	]
+}
